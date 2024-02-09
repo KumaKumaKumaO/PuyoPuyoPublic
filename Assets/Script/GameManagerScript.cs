@@ -28,6 +28,8 @@ public class GameManagerScript : MonoBehaviour
 	private int _fieldCount = 1;
 	[SerializeField]
 	private int[] _playerPlayFieldNumber = default;
+	[SerializeField]
+	private Vector2 _initPos = new Vector2(-2, -7);
 
 	private PlayFieldManagerScript[] _playFieldManagers = default;
 
@@ -61,21 +63,20 @@ public class GameManagerScript : MonoBehaviour
 		_playFieldManagers = new PlayFieldManagerScript[_fieldCount];
 		Vector2 nextPos = default;
 		Vector2 popPos = default;
-		Vector2 initPos = new Vector2(-2, -7);
 		FieldDataScript fieldDataScript = default;
 		//フィールドの個数分のフィールドを生成する
 		for (int i = 0; i < _fieldCount; i++)
 		{
 			//操作開始ポジションを作成
-			popPos = initPos + Vector2.up * (_stageColLength) + Vector2.right * (_stageRowLength / 2 + _stageColLength % 2);
+			popPos = _initPos + Vector2.up * (_stageColLength) + Vector2.right * (_stageRowLength / 2 + _stageColLength % 2);
 			//準備ポジションを作成
-			nextPos = initPos + Vector2.up * _stageColLength
+			nextPos = _initPos + Vector2.up * _stageColLength
 				+ Vector2.right * (_stageRowLength + STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE);
 			//配列データを作成
 			fieldDataScript = new FieldDataScript(_stageRowLength + STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE
 				, _stageColLength + STAGE_WALL_BOTTOMSIDE_SIZE + 2, STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE, STAGE_WALL_BOTTOMSIDE_SIZE);
 			//ステージを生成
-			InstanceStage(initPos, fieldDataScript, popPos);
+			InstanceStage(_initPos, fieldDataScript, popPos);
 			//初期化用のデータを作成
 			gameData = new GameData(canDeletePuyoValue, nextPos, popPos, fieldDataScript);
 			//プレイヤーの番号と入力を結び付ける
@@ -93,7 +94,7 @@ public class GameManagerScript : MonoBehaviour
 					, pauseCanvasObject, gameOverCanvasObject);
 			}
 			//初期化用ポジションをずらす
-			initPos += Vector2.right * (STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE + _stageRowLength + STAGE_NEXT_ROW_SIZE);
+			_initPos += Vector2.right * (STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE + _stageRowLength + STAGE_NEXT_ROW_SIZE);
 		}
 		//使わない参照を切る
 		objectPoolScript = null;
