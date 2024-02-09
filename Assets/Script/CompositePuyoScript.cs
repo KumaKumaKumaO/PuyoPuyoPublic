@@ -75,34 +75,30 @@ public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoState
 	/// <param name="moveVector">動くベクトル</param>
 	public void MoveCompositePuyo(Vector2 moveVector)
 	{
-		switch (_myState)
+
+		if (_myState == CompositePuyoState.CanMoving)
 		{
-			//自身のステートが「動ける」の場合
-			case CompositePuyoState.CanMoving:
+			//配列内のぷよが動くベクトルに動けるか確認する
+			foreach (IPuyoOperatable puyoOperatable in _puyos)
+			{
+				if (!puyoOperatable.CanMovePuyo(moveVector, _fieldArrayDataControllable))
 				{
-					//配列内のぷよが動くベクトルに動けるか確認する
-					foreach (IPuyoOperatable puyoOperatable in _puyos)
+					//どちらかが下に移動できない場合
+					if (moveVector == Vector2.down)
 					{
-						if (!puyoOperatable.CanMovePuyo(moveVector, _fieldArrayDataControllable))
-						{
-							//どちらかが下に移動できない場合
-							if (moveVector == Vector2.down)
-							{
-								//ハードドロップにする
-								HardDropCompositePuyo();
-								//自身のステートを「終了」にする
-								_myState = CompositePuyoState.End;
-							}
-							return;
-						}
+						//ハードドロップにする
+						HardDropCompositePuyo();
+						//自身のステートを「終了」にする
+						_myState = CompositePuyoState.End;
 					}
-					//両方のぷよを動かしたいベクトルに動かす
-					foreach (IPuyoOperatable puyoOperatable in _puyos)
-					{
-						puyoOperatable.MovePuyo(moveVector);
-					}
-					break;
+					return;
 				}
+			}
+			//両方のぷよを動かしたいベクトルに動かす
+			foreach (IPuyoOperatable puyoOperatable in _puyos)
+			{
+				puyoOperatable.MovePuyo(moveVector);
+			}
 		}
 	}
 
@@ -111,30 +107,25 @@ public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoState
 	/// </summary>
 	public void HardDropCompositePuyo()
 	{
-		switch (_myState)
+		if (_myState == CompositePuyoState.CanMoving)
 		{
-			//自身のステートが「動ける」の場合
-			case CompositePuyoState.CanMoving:
+			//自身の回転のステートが「上」の場合は下側のぷよから処理する
+			if (_myRotationState == RotationState.Top)
+			{
+				for (int i = 0; i < _puyos.Length; i++)
 				{
-					//自身の回転のステートが「上」の場合は下側のぷよから処理する
-					if (_myRotationState == RotationState.Top)
-					{
-						for (int i = 0; i < _puyos.Length; i++)
-						{
-							HardDropProcess(i);
-						}
-					}
-					//そのほかの場合は上側のぷよから処理する
-					else
-					{
-						for (int i = _puyos.Length - 1; i >= 0; i--)
-						{
-							HardDropProcess(i);
-						}
-					}
-					_myState = CompositePuyoState.End;
-					break;
+					HardDropProcess(i);
 				}
+			}
+			//そのほかの場合は上側のぷよから処理する
+			else
+			{
+				for (int i = _puyos.Length - 1; i >= 0; i--)
+				{
+					HardDropProcess(i);
+				}
+			}
+			_myState = CompositePuyoState.End;
 		}
 	}
 
@@ -158,22 +149,17 @@ public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoState
 	/// </summary>
 	/// <param name="rotateDirection">回転の方向</param>
 	public void RotationCompositePuyo(RotateDirection rotateDirection)
-	{	
-		switch (_myState)
+	{
+		if (_myState == CompositePuyoState.CanMoving)
 		{
-			//動ける場合に回転できそうなら回転する
-			case CompositePuyoState.CanMoving:
-				{
-					if (CanNormalRotation(rotateDirection))
-					{
-						NormalRotation(rotateDirection);
-					}
-					else if (CanWallRotation(rotateDirection))
-					{
-						WallRotation(rotateDirection);
-					}
-					break;
-				}
+			if (CanNormalRotation(rotateDirection))
+			{
+				NormalRotation(rotateDirection);
+			}
+			else if (CanWallRotation(rotateDirection))
+			{
+				WallRotation(rotateDirection);
+			}
 		}
 	}
 
