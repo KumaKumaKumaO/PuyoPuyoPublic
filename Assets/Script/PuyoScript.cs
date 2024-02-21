@@ -1,5 +1,5 @@
 /// <summary>
-/// �ʏ�̂Ղ�
+/// 通常のぷよ
 /// </summary>
 public class PuyoScript:BasePuyoScript
 {

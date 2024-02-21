@@ -1,9 +1,9 @@
 // ---------------------------------------------------------
 // FieldObjectManagerScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System;
 using Interface;
 
 /// <summary>
-/// ƒtƒB[ƒ‹ƒh‚É”z’u‚³‚ê‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg‚Ì‘€ì
+/// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«é…ç½®ã•ã‚Œã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ“ä½œ
 /// </summary>
 public class FieldObjectManagerScript : INextPuyoPopable, IFieldPuyoObjectRemovable, IFieldPuyoObjectAddble, IFieldDataScriptGetable, IFieldObjectUpdatable
 {
@@ -42,12 +42,12 @@ public class FieldObjectManagerScript : INextPuyoPopable, IFieldPuyoObjectRemova
 	}
 
 	/// <summary>
-	/// ‰Šú‰»‚³‚ê‚½‚Õ‚ææ“¾‚·‚é
+	/// åˆæœŸåŒ–ã•ã‚ŒãŸã·ã‚ˆå–å¾—ã™ã‚‹
 	/// </summary>
 	private void GetInitPuyo()
 	{
 		FieldDataType fieldDataType = default;
-		//‡”Ô‘Ò‚¿‚Ì‚Õ‚æ‚ğ‘€ì‚Õ‚æ‚ÉˆÚ“®‚µ‚Ä‡”Ô‘Ò‚¿‚Ì‚Õ‚æ‚ğ—pˆÓ‚µ‰Šú‰»‚·‚é
+		//é †ç•ªå¾…ã¡ã®ã·ã‚ˆã‚’æ“ä½œã·ã‚ˆã«ç§»å‹•ã—ã¦é †ç•ªå¾…ã¡ã®ã·ã‚ˆã‚’ç”¨æ„ã—åˆæœŸåŒ–ã™ã‚‹
 		for (int i = 0; i < _nextPuyos.Length; i++)
 		{
 			_nowPuyos[i] = _nextPuyos[i];
@@ -59,83 +59,83 @@ public class FieldObjectManagerScript : INextPuyoPopable, IFieldPuyoObjectRemova
 	}
 
 	/// <summary>
-	/// ”z—ñ‚Åˆµ‚¤ƒf[ƒ^‚ğƒ‰ƒ“ƒ_ƒ€‚Å‘I‚Ô
+	/// é…åˆ—ã§æ‰±ã†ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§é¸ã¶
 	/// </summary>
-	/// <returns>‘I‚Î‚ê‚½ƒf[ƒ^</returns>
+	/// <returns>é¸ã°ã‚ŒãŸãƒ‡ãƒ¼ã‚¿</returns>
 	private FieldDataType SelectDataType()
 	{
 		return (FieldDataType)UnityEngine.Random.Range(2, Enum.GetValues(typeof(FieldDataType)).Length);
 	}
 
 	/// <summary>
-	/// ‡”Ô‘Ò‚¿‚É‚¢‚é‚Õ‚æ‚ğƒ|ƒbƒv‚·‚é
+	/// é †ç•ªå¾…ã¡ã«ã„ã‚‹ã·ã‚ˆã‚’ãƒãƒƒãƒ—ã™ã‚‹
 	/// </summary>
 	public void NextPuyoPop()
 	{
-		//‰Šú‰»‚µ‚½‚Õ‚æ‚ğæ“¾
+		//åˆæœŸåŒ–ã—ãŸã·ã‚ˆã‚’å–å¾—
 		GetInitPuyo();
-		//ˆÊ’u‚ğ‰Šú‰»‚·‚é
+		//ä½ç½®ã‚’åˆæœŸåŒ–ã™ã‚‹
 		MoveNextPos(_nextPos);
-		//‚Ü‚Æ‚ß‚Ä“®‚©‚·ƒNƒ‰ƒX‚ğ‰Šú‰»‚·‚é
+		//ã¾ã¨ã‚ã¦å‹•ã‹ã™ã‚¯ãƒ©ã‚¹ã‚’åˆæœŸåŒ–ã™ã‚‹
 		_myCompositePuyo.Initialization();
-		//ƒXƒ^[ƒg‚ÌêŠ‚ÉˆÚ“®‚µ‚Ä“ñ‚Â‚ß‚ğ‰E‚É‚¸‚ç‚·
+		//ã‚¹ã‚¿ãƒ¼ãƒˆã®å ´æ‰€ã«ç§»å‹•ã—ã¦äºŒã¤ã‚ã‚’å³ã«ãšã‚‰ã™
 		_myCompositePuyo.MoveFieldCompositePuyo(_popPos, Vector2.right);
 	}
 
 	/// <summary>
-	/// “n‚³‚ê‚½êŠ‚Æ“¯‚¶êŠ‚É‚ ‚éƒIƒuƒWƒFƒNƒg‚ğÁ‚·
+	/// æ¸¡ã•ã‚ŒãŸå ´æ‰€ã¨åŒã˜å ´æ‰€ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
 	/// </summary>
-	/// <param name="col">s</param>
-	/// <param name="row">—ñ</param>
+	/// <param name="col">è¡Œ</param>
+	/// <param name="row">åˆ—</param>
 	public void RemoveFieldObject(int row, int col)
 	{
-		//ƒtƒB[ƒ‹ƒh‚É‘¶İ‚·‚éƒIƒuƒWƒFƒNƒg‚Ì’†‚©‚çˆê’v‚·‚é‚à‚Ì‚ğÁ‚·
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å­˜åœ¨ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­ã‹ã‚‰ä¸€è‡´ã™ã‚‹ã‚‚ã®ã‚’æ¶ˆã™
 		for (int i = 0; i < _fieldObjects.Count; i++)
 		{
-			//s‚Æ—ñ‚ªæ“¾‚µ‚½ƒIƒuƒWƒFƒNƒg‚Æ“¯‚¶‚©
+			//è¡Œã¨åˆ—ãŒå–å¾—ã—ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨åŒã˜ã‹
 			if (_fieldObjects[i].Col == col && _fieldObjects[i].Row == row)
 			{
 				IPuyoDataGetable puyoDataGetableTemp = _fieldObjects[i];
-				//ƒtƒB[ƒ‹ƒh‚É‘¶İ‚·‚éƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg‚©‚çÁ‚·
+				//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å­˜åœ¨ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã‹ã‚‰æ¶ˆã™
 				_fieldObjects.Remove(puyoDataGetableTemp);
-				//”z—ñ‚Ì’†g‚ğ‚È‚É‚à‚È‚¢(None)‚É‚·‚é
+				//é…åˆ—ã®ä¸­èº«ã‚’ãªã«ã‚‚ãªã„(None)ã«ã™ã‚‹
 				((IFieldArrayDataSetable)_fieldDataScript).SetFieldArrayData(row, col, FieldDataType.None);
-				//ƒIƒuƒWƒFƒNƒg‚ğ”jŠü‚·‚é
+				//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç ´æ£„ã™ã‚‹
 				_objectPoolScript.DeletePuyo((PuyoScript)puyoDataGetableTemp);
 			}
 		}
 	}
 
 	/// <summary>
-	/// ƒtƒB[ƒ‹ƒh‚É‘¶İ‚·‚éƒIƒuƒWƒFƒNƒg‚ğXV‚·‚é
+	/// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å­˜åœ¨ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°ã™ã‚‹
 	/// </summary>
 	public void UpdateFieldObject()
 	{
-		//ƒtƒB[ƒ‹ƒh‚É‘¶İ‚·‚éPuyo‚ğ‰º‚É‚Ô‚Â‚©‚é‚Ü‚ÅˆÚ“®‚³‚¹‚é
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«å­˜åœ¨ã™ã‚‹Puyoã‚’ä¸‹ã«ã¶ã¤ã‹ã‚‹ã¾ã§ç§»å‹•ã•ã›ã‚‹
 		foreach (IPuyoDataGetable puyoDataGetable in _fieldObjects)
 		{
-			//‚¢‚Ü‚¢‚éˆÊ’u‚Ì”z—ñƒf[ƒ^‚ğ‚È‚É‚à‚È‚¢(None)‚É‚·‚é
+			//ã„ã¾ã„ã‚‹ä½ç½®ã®é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’ãªã«ã‚‚ãªã„(None)ã«ã™ã‚‹
 			((IFieldArrayDataSetable)_fieldDataScript).SetFieldArrayData(puyoDataGetable.Row, puyoDataGetable.Col, FieldDataType.None);
-			//‰º‚É‚È‚É‚©‚ ‚é‚Æ‚±‚ë‚Ü‚Å‰º‚ÉˆÚ“®‚³‚¹‚é
+			//ä¸‹ã«ãªã«ã‹ã‚ã‚‹ã¨ã“ã‚ã¾ã§ä¸‹ã«ç§»å‹•ã•ã›ã‚‹
 			((IPuyoOperatable)puyoDataGetable).FallPuyo(_fieldDataScript);
-			//‰º‚ÉˆÚ“®‚µ‚½‚ ‚Æ‚É©•ª‚Ìƒf[ƒ^‚ğ”z—ñ‚É“ü—Í‚·‚é
+			//ä¸‹ã«ç§»å‹•ã—ãŸã‚ã¨ã«è‡ªåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã‚’é…åˆ—ã«å…¥åŠ›ã™ã‚‹
 			((IFieldArrayDataSetable)_fieldDataScript).SetFieldArrayData(puyoDataGetable.Row, puyoDataGetable.Col, puyoDataGetable.MyFieldData);
 		}
 	}
 
 	/// <summary>
-	/// ƒtƒB[ƒ‹ƒh‚É”z’u‚³‚ê‚½Puyo‚Æ‚µ‚ÄŠi”[‚·‚é
+	/// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«é…ç½®ã•ã‚ŒãŸPuyoã¨ã—ã¦æ ¼ç´ã™ã‚‹
 	/// </summary>
-	/// <param name="basePuyoScript">Ši”[‚µ‚½‚¢PuyoScript</param>
+	/// <param name="basePuyoScript">æ ¼ç´ã—ãŸã„PuyoScript</param>
 	public void AddFieldPuyoObject(IPuyoDataGetable basePuyoScript)
 	{
 		_fieldObjects.Add(basePuyoScript);
 	}
 
 	/// <summary>
-	/// ˆÊ’u‚ğ‰Šú‰»
+	/// ä½ç½®ã‚’åˆæœŸåŒ–
 	/// </summary>
-	/// <param name="initializePos">‰Šú‚ÌˆÊ’u</param>
+	/// <param name="initializePos">åˆæœŸã®ä½ç½®</param>
 	public void MoveNextPos(Vector2 initializePos)
 	{
 		_nextPuyos[0].MyTransform.position = initializePos;

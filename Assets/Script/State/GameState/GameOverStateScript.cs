@@ -1,9 +1,9 @@
 //---------------------------------------------------------
 // GameOverStateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒQ[ƒ€ƒI[ƒo[‚ÌƒXƒe[ƒg
+/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 public class GameOverStateScript : BaseGameStateScript
 {
@@ -26,7 +26,7 @@ public class GameOverStateScript : BaseGameStateScript
 
 	public override void Enter()
 	{
-		//‘S‚Ä‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚Ì’†‚©‚çƒJƒƒ‰AƒQ[ƒ€ƒ}ƒl[ƒWƒƒ[AƒI[ƒfƒBƒIˆÈŠO‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‚·
+		//å…¨ã¦ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä¸­ã‹ã‚‰ã‚«ãƒ¡ãƒ©ã€ã‚²ãƒ¼ãƒ ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã€ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªä»¥å¤–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™
 		foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
 		{
 			if (obj.GetComponent<Camera>() != null || obj.GetComponent<GameManagerScript>() != null || obj.GetComponent<AudioScript>() != null)
@@ -35,26 +35,26 @@ public class GameOverStateScript : BaseGameStateScript
 			}
 			obj.SetActive(false);
 		}
-		//ƒQ[ƒ€ƒI[ƒo[—pƒLƒƒƒ“ƒoƒX‚ğo‚·
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ç”¨ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’å‡ºã™
 		_gameOverCanvasObject.SetActive(true);
-		//BGM‚Ìƒ‹[ƒv‚ğ~‚ß‚ÄAƒQ[ƒ€ƒI[ƒo[BGM‚ğ—¬‚·
+		//BGMã®ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã¦ã€ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼BGMã‚’æµã™
 		AudioScript.InstanceAudioScript.BGMLoopMute();
 		AudioScript.InstanceAudioScript.PlayGameOverSound();
 	}
 	public override void Execute()
 	{
-		//Œˆ’è‚ª‰Ÿ‚³‚ê‚½‚ç
+		//æ±ºå®šãŒæŠ¼ã•ã‚ŒãŸã‚‰
 		if (_input.IsSubmit())
 		{
-			//ƒ^ƒCƒgƒ‹ƒV[ƒ“‚ğƒ[ƒh‚·‚é
+			//ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
 			SceneManager.LoadScene(_titleSceneName);
 		}
 	}
 	public override void Exit()
 	{
-		//ƒNƒ‰ƒX‚ÌQÆ‚ğØ‚é
+		//ã‚¯ãƒ©ã‚¹ã®å‚ç…§ã‚’åˆ‡ã‚‹
 		_gameOverCanvasObject = null;
-		//BGM‚ğ‚Ü‚½Ä¶‚Å‚«‚é‚æ‚¤‚É‚·‚é
+		//BGMã‚’ã¾ãŸå†ç”Ÿã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹
 		AudioScript.InstanceAudioScript.BGMLoopUnMute();
 	}
 }

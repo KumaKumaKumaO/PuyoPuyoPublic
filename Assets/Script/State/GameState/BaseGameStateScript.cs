@@ -1,15 +1,15 @@
 // ---------------------------------------------------------
 // BaseGameStateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
 
 /// <summary>
-/// ƒQ[ƒ€‘S‘Ì‚ÌƒXƒe[ƒg
+/// ã‚²ãƒ¼ãƒ å…¨ä½“ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 public abstract class BaseGameStateScript
 {
@@ -24,7 +24,7 @@ public abstract class BaseGameStateScript
 	}
 
 	/// <summary>
-	/// ‚±‚ÌƒXƒe[ƒg‚É‚È‚Á‚½‚Æ‚«‚É‚P“x‚¾‚¯Às‚·‚é
+	/// ã“ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«ãªã£ãŸã¨ãã«ï¼‘åº¦ã ã‘å®Ÿè¡Œã™ã‚‹
 	/// </summary>
 	public virtual void Enter()
 	{
@@ -32,20 +32,20 @@ public abstract class BaseGameStateScript
 	}
 
 	/// <summary>
-	/// ‚±‚ÌƒXƒe[ƒg‚Ì‚Æ‚«–ˆƒtƒŒ[ƒ€Às‚·‚é
+	/// ã“ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®ã¨ãæ¯ãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œã™ã‚‹
 	/// </summary>
 	public virtual void Execute()
 	{
-		//ƒ|[ƒYƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//ãƒãƒ¼ã‚ºãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (_input.IsPause())
 		{
-			//ƒXƒe[ƒg‚ğƒ|[ƒYƒXƒe[ƒg‚É•ÏX‚·‚é
+			//ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ãƒãƒ¼ã‚ºã‚¹ãƒ†ãƒ¼ãƒˆã«å¤‰æ›´ã™ã‚‹
 			_gameManagerStateChangable.ChangeToPauseState();
 		}
 	}
 
 	/// <summary>
-	/// ‚±‚ÌƒXƒe[ƒg‚©‚ç‘¼‚ÌƒXƒe[ƒg‚É‚È‚é‚Æ‚«‚É‚P“x‚¾‚¯Às‚·‚é
+	/// ã“ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‹ã‚‰ä»–ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«ãªã‚‹ã¨ãã«ï¼‘åº¦ã ã‘å®Ÿè¡Œã™ã‚‹
 	/// </summary>
 	public virtual void Exit()
 	{

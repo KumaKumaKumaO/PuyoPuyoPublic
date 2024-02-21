@@ -1,50 +1,50 @@
 // ---------------------------------------------------------
 // AudioScript.cs
 //
-// ì¬“ú:10/31
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/31
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ‰¹º‚ğƒRƒ“ƒgƒ[ƒ‹‚·‚é
+/// éŸ³å£°ã‚’ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹
 /// </summary>
 public class AudioScript : MonoBehaviour
 {
 	[SerializeField]
-	//ƒQ[ƒ€ƒV[ƒ“‚Ì–¼‘O
+	//ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®åå‰
 	private string _gameSceneName = "GameScene";
 	[SerializeField]
-	//ƒ^ƒCƒgƒ‹ƒV[ƒ“‚Ì–¼‘O
+	//ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã®åå‰
 	private string _titleSceneName = "TitleScene";
-	//Œ»İ‚ÌƒV[ƒ“‚Ì–¼‘O
+	//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®åå‰
 	private string _nowSceneName = default;
 	private bool isMute = false;
 
 	[SerializeField]
 	private AudioSource _audioSource = default;
 	[SerializeField]
-	//ƒCƒ“ƒQ[ƒ€‚ÌBGM
+	//ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã®BGM
 	private AudioClip _gameBGM = default;
 	[SerializeField]
-	//ƒ^ƒCƒgƒ‹‚ÌBGM
+	//ã‚¿ã‚¤ãƒˆãƒ«ã®BGM
 	private AudioClip _titleBGM = default;
 	[SerializeField]
-	//‚Õ‚æ‚ğÁ‚µ‚½‚Ì‰¹
+	//ã·ã‚ˆã‚’æ¶ˆã—ãŸæ™‚ã®éŸ³
 	private AudioClip _deleteSound = default;
 	[SerializeField]
-	//ƒQ[ƒ€ƒI[ƒo[‚ÌBGM
+	//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®BGM
 	private AudioClip _gameOverSound = default;
-	//©g‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+	//è‡ªèº«ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
 	private static AudioScript _instance = default;
 
 	public static AudioScript InstanceAudioScript { get => _instance; }
 	private void Start()
 	{
-		//ƒVƒ“ƒOƒ‹ƒgƒ“‰»
+		//ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åŒ–
 		if (_instance == null)
 		{
 			DontDestroyOnLoad(this);
@@ -59,41 +59,41 @@ public class AudioScript : MonoBehaviour
 
 	private void Update()
 	{
-		//ƒ~ƒ…[ƒg‚µ‚Ä‚¢‚é‚©
+		//ãƒŸãƒ¥ãƒ¼ãƒˆã—ã¦ã„ã‚‹ã‹
 		if (isMute)
 		{
 			return;
 		}
-		//Œ»İ‚ÌƒV[ƒ“‚ªŒ»İ‚Æ“¯‚¶‚©
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ãŒç¾åœ¨ã¨åŒã˜ã‹
 		if (SceneManager.GetActiveScene().name == _nowSceneName)
 		{
-			//Ä¶’†‚©
+			//å†ç”Ÿä¸­ã‹
 			if (!_audioSource.isPlaying)
 			{
-				//Œ»İ‚ÌƒV[ƒ“‚ªƒ^ƒCƒgƒ‹ƒV[ƒ“‚©
+				//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ãŒã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã‹
 				if (_nowSceneName == _titleSceneName)
 				{
 					PlayTitleBGM();
 				}
-				//Œ»İ‚ÌƒV[ƒ“‚ªƒQ[ƒ€ƒV[ƒ“‚©
+				//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ãŒã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã‹
 				else if (_nowSceneName == _gameSceneName)
 				{
 					PlayInGameBGM();
 				}
 			}
 		}
-		//Œ»İ‚ÌƒV[ƒ“‚Æ‚Íˆá‚¤ê‡
+		//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã¨ã¯é•ã†å ´åˆ
 		else
 		{
-			//Œ»İ‚ÌƒV[ƒ“–¼æ“¾
+			//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³åå–å¾—
 			_nowSceneName = SceneManager.GetActiveScene().name;
-			//Ä¶‚ğ’â~
+			//å†ç”Ÿã‚’åœæ­¢
 			_audioSource.Stop();
 		}
 	}
 
 	/// <summary>
-	/// BGM‚ğƒ~ƒ…[ƒg‚É‚·‚é
+	/// BGMã‚’ãƒŸãƒ¥ãƒ¼ãƒˆã«ã™ã‚‹
 	/// </summary>
 	public void BGMLoopMute()
 	{
@@ -102,7 +102,7 @@ public class AudioScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// BGM‚Ìƒ~ƒ…[ƒg‚ğ‰ğœ‚·‚é
+	/// BGMã®ãƒŸãƒ¥ãƒ¼ãƒˆã‚’è§£é™¤ã™ã‚‹
 	/// </summary>
 	public void BGMLoopUnMute()
 	{
@@ -110,7 +110,7 @@ public class AudioScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ƒCƒ“ƒQ[ƒ€‚ÌBGM‚ğÄ¶‚·‚é
+	/// ã‚¤ãƒ³ã‚²ãƒ¼ãƒ ã®BGMã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
 	private void PlayInGameBGM()
 	{
@@ -119,7 +119,7 @@ public class AudioScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ƒ^ƒCƒgƒ‹‚ÌBGM‚ğÄ¶‚·‚é
+	/// ã‚¿ã‚¤ãƒˆãƒ«ã®BGMã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
 	private void PlayTitleBGM()
 	{
@@ -128,7 +128,7 @@ public class AudioScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ‚Õ‚æíœ‚ÌSE‚ğÄ¶‚·‚é
+	/// ã·ã‚ˆå‰Šé™¤ã®SEã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
 	public void PlayDeleteSound()
 	{
@@ -136,7 +136,7 @@ public class AudioScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[‚ÌSE‚ğÄ¶‚·‚é
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®SEã‚’å†ç”Ÿã™ã‚‹
 	/// </summary>
 	public void PlayGameOverSound()
 	{

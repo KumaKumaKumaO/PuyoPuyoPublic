@@ -1,15 +1,15 @@
 // ---------------------------------------------------------
 // PlayStateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ª‘€ì‚Å‚«‚éƒXƒe[ƒg
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã§ãã‚‹ã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 public class PlayStateScript : BaseGameStateScript
 {
@@ -32,17 +32,17 @@ public class PlayStateScript : BaseGameStateScript
 
 		switch (_compositePuyoStateChackable.CompositePuyoState)
 		{
-			//“®‚©‚¹‚éê‡
+			//å‹•ã‹ã›ã‚‹å ´åˆ
 			case CompositePuyoState.CanMoving:
 				{
-					//‚Õ‚æ‚ğ‘€ì‚·‚é
+					//ã·ã‚ˆã‚’æ“ä½œã™ã‚‹
 					_puyoOperateScript.PuyoControl((CompositePuyoScript)_compositePuyoStateChackable, _input);
 					break;
 				}
-			//“®‚©‚·‚Ì‚ğI—¹‚·‚éê‡
+			//å‹•ã‹ã™ã®ã‚’çµ‚äº†ã™ã‚‹å ´åˆ
 			case CompositePuyoState.End:
 				{
-					//ƒXƒe[ƒg‚ğ‘Ò‹@‚É•ÏX
+					//ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¾…æ©Ÿã«å¤‰æ›´
 					_gameManagerStateChangable.ChangeToPuyoStayState();
 					break;
 				}

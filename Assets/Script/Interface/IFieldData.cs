@@ -1,50 +1,50 @@
 namespace Interface
 {
     /// <summary>
-    /// ”z—ñƒf[ƒ^‚ğæ“¾‚Å‚«‚é
+    /// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã§ãã‚‹
     /// </summary>
     public interface IFieldArrayDataGetable
     {
         /// <summary>
-        /// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚½—ñ‚Ì’·‚³
+        /// å£ã®åšã•ã‚’å«ã‚ãŸåˆ—ã®é•·ã•
         /// </summary>
         public int FieldDataArrayColLength { get; }
         /// <summary>
-        /// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚½s‚Ì’·‚³
+        /// å£ã®åšã•ã‚’å«ã‚ãŸè¡Œã®é•·ã•
         /// </summary>
         public int FieldDataArrayRowLength { get; }
         /// <summary>
-        /// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚È‚¢s‚Ì’·‚³
+        /// å£ã®åšã•ã‚’å«ã‚ãªã„è¡Œã®é•·ã•
         /// </summary>
         public int FieldDataArrayRowLengthNoneWall { get; }
         /// <summary>
-        /// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚È‚¢—ñ‚Ì’·‚³
+        /// å£ã®åšã•ã‚’å«ã‚ãªã„åˆ—ã®é•·ã•
         /// </summary>
         public int FieldDataArrayColLengthNoneWall { get; }
         /// <summary>
-        /// ”z—ñƒf[ƒ^‚ÌQÆ
+        /// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã®å‚ç…§
         /// </summary>
-        /// <param name="row">—ñ</param>
-        /// <param name="col">s</param>
-        /// <returns>QÆæ‚Ìƒf[ƒ^</returns>
+        /// <param name="row">åˆ—</param>
+        /// <param name="col">è¡Œ</param>
+        /// <returns>å‚ç…§å…ˆã®ãƒ‡ãƒ¼ã‚¿</returns>
         FieldDataType GetFieldData(int row, int col);
     }
     /// <summary>
-    /// ”z—ñƒf[ƒ^‚É‘‚«‚ß‚é
+    /// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã«æ›¸ãè¾¼ã‚ã‚‹
     /// </summary>
     public interface IFieldArrayDataSetable
     {
         /// <summary>
-        /// ”z—ñƒf[ƒ^‚Ì‘€ì
+        /// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã®æ“ä½œ
         /// </summary>
-        /// <param name="row">—ñ</param>
-        /// <param name="col">s</param>
-        /// <param name="data">•ÏXŒã‚Ìƒf[ƒ^</param>
+        /// <param name="row">åˆ—</param>
+        /// <param name="col">è¡Œ</param>
+        /// <param name="data">å¤‰æ›´å¾Œã®ãƒ‡ãƒ¼ã‚¿</param>
         void SetFieldArrayData(int row, int col, FieldDataType data);
     }
 
     /// <summary>
-    /// ”z—ñƒf[ƒ^‚ğ“Ç‚İ‘‚«‚Å‚«‚é
+    /// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿æ›¸ãã§ãã‚‹
     /// </summary>
     public interface IFieldArrayDataControllable : IFieldArrayDataSetable, IFieldArrayDataGetable
 	{

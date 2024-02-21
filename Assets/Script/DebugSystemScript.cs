@@ -1,32 +1,32 @@
 // ---------------------------------------------------------
 // DebugSystemScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ”z—ñ“à‚Ìƒf[ƒ^‚ğ•\¦‚·‚é
+/// é…åˆ—å†…ã®ãƒ‡ãƒ¼ã‚¿ã‚’è¡¨ç¤ºã™ã‚‹
 /// </summary>
 public class DebugSystemScript : MonoBehaviour
 {
-	[SerializeField,Header("o—Í‚·‚éƒeƒLƒXƒg")]
+	[SerializeField,Header("å‡ºåŠ›ã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
 	private Text _text = default;
-	[SerializeField,Header("‚Ç‚ÌƒvƒŒƒCƒ„[‚Ì”z—ñ‚ğ•\¦‚·‚é‚©")]
+	[SerializeField,Header("ã©ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é…åˆ—ã‚’è¡¨ç¤ºã™ã‚‹ã‹")]
 	private int _selectPlayerNum = default;
-	[SerializeField,Header("ƒQ[ƒ€ƒ}ƒl[ƒWƒƒ[")]
+	[SerializeField,Header("ã‚²ãƒ¼ãƒ ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
 	private GameManagerScript _gameManager = default;
 
 	private string _data = default;
 
 	private void Update()
 	{
-		//‰Šú‰»
+		//åˆæœŸåŒ–
 		_data = "";
-		//”z—ñ“à‚Ìî•ñ‚ğ‚·‚×‚Ästring‚ÉŠi”[‚·‚é
+		//é…åˆ—å†…ã®æƒ…å ±ã‚’ã™ã¹ã¦stringã«æ ¼ç´ã™ã‚‹
 		for (int i = _gameManager.playField[_selectPlayerNum].FieldObjectManagerScript.FieldDataScript.FieldDataArrayColLength - 1; i >= 0; i--)
 		{
 			for (int k = 0; k < _gameManager.playField[_selectPlayerNum].FieldObjectManagerScript.FieldDataScript.FieldDataArrayRowLength; k++)
@@ -35,7 +35,7 @@ public class DebugSystemScript : MonoBehaviour
 			}
 			_data += "\n";
 		}
-		//Ši”[‚µ‚½ƒf[ƒ^‚ğƒeƒLƒXƒg‚É“ü‚ê‚é
+		//æ ¼ç´ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’ãƒ†ã‚­ã‚¹ãƒˆã«å…¥ã‚Œã‚‹
 		_text.text = _data;
 	}
 }

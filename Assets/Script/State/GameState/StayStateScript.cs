@@ -1,16 +1,16 @@
 // ---------------------------------------------------------
 // StayStateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ª‘€ì‚Å‚«‚È‚¢ƒXƒe[ƒg
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã§ããªã„ã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 public class StayStateScript : BaseGameStateScript
 {
@@ -23,7 +23,7 @@ public class StayStateScript : BaseGameStateScript
 	public StayStateScript(IGameManagerStateChangable gameManagerStateChangable, IInput input
 		, FieldObjectManagerScript fieldObjectManagerScript, int canDeletePuyoValue) : base(gameManagerStateChangable, input)
 	{
-		//ƒGƒ‰[ˆ—‚¢‚ê‚é
+		//ã‚¨ãƒ©ãƒ¼å‡¦ç†ã„ã‚Œã‚‹
 		FieldDataScript fieldDataScript = fieldObjectManagerScript.FieldDataScript;
 		gameRuleScript = new GameRuleScript(fieldDataScript, fieldObjectManagerScript, canDeletePuyoValue);
 		_fieldObjectUpdatable = fieldObjectManagerScript;
@@ -31,51 +31,51 @@ public class StayStateScript : BaseGameStateScript
 
 	public override void Enter()
 	{
-		//Á‚¹‚é‚Õ‚æ‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½ê‡
+		//æ¶ˆã›ã‚‹ã·ã‚ˆãŒè¦‹ã¤ã‹ã‚‰ãªã‹ã£ãŸå ´åˆ
 		if (!gameRuleScript.ContainDeletePuyo())
 		{
-			//ƒQ[ƒ€ƒI[ƒo[ğŒ‚ğ–‚½‚µ‚½ê‡
+			//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ¡ä»¶ã‚’æº€ãŸã—ãŸå ´åˆ
 			if (gameRuleScript.IsGameOver())
 			{
-				//ƒQ[ƒ€ƒI[ƒo[ƒXƒe[ƒg‚É•ÏX
+				//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¹ãƒ†ãƒ¼ãƒˆã«å¤‰æ›´
 				_gameManagerStateChangable.ChangeToGameOverState();
 				return;
 			}
-			//‘€ìƒXƒe[ƒg‚É•ÏX
+			//æ“ä½œã‚¹ãƒ†ãƒ¼ãƒˆã«å¤‰æ›´
 			_gameManagerStateChangable.ChangeToPlayState();
 			return;
 		}
 		
-		//‘€ì‚ª‚Å‚«‚È‚¢ƒXƒe[ƒg‚É•ÏX‚³‚ê‚½ŠÔ‚ğ‹L˜^
+		//æ“ä½œãŒã§ããªã„ã‚¹ãƒ†ãƒ¼ãƒˆã«å¤‰æ›´ã•ã‚ŒãŸæ™‚é–“ã‚’è¨˜éŒ²
 		_startTime = Time.time;
 	}
 
 	public override void Execute()
 	{
 		base.Execute();
-		//íœŒã‚ÉXV‚ÌŠÔ‚É‚È‚Á‚½ê‡
+		//å‰Šé™¤å¾Œã«æ›´æ–°ã®æ™‚é–“ã«ãªã£ãŸå ´åˆ
 		if (_startTime + _updateLagTime + _deleteLagTime <= Time.time)
 		{
-			//ƒtƒB[ƒ‹ƒh‚É‚ ‚é‚Õ‚æ‚ğ‚ÌˆÊ’u‚ğXV‚·‚é
+			//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«ã‚ã‚‹ã·ã‚ˆã‚’ã®ä½ç½®ã‚’æ›´æ–°ã™ã‚‹
 			_fieldObjectUpdatable.UpdateFieldObject();
-			//ƒ^ƒCƒ}[‚ğ‰Šú‰»‚·‚é
+			//ã‚¿ã‚¤ãƒãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
 			_startTime = Time.time;
-			//íœ‰Â”\‚Õ‚æ‚ª‘¼‚É‘¶İ‚µ‚È‚¢ê‡
+			//å‰Šé™¤å¯èƒ½ã·ã‚ˆãŒä»–ã«å­˜åœ¨ã—ãªã„å ´åˆ
 			if (!gameRuleScript.ContainDeletePuyo())
 			{
 				
-				//‘O‚ÌƒXƒe[ƒg‚É•ÏX‚·‚é
+				//å‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«å¤‰æ›´ã™ã‚‹
 				_gameManagerStateChangable.ChangeToBeforeState();
 				return;
 			}
 			return;
 		}
-		//íœ‚Ü‚Å‚ÌŠÔ‚É‚È‚Á‚½ê‡
+		//å‰Šé™¤ã¾ã§ã®æ™‚é–“ã«ãªã£ãŸå ´åˆ
 		else if (_startTime + _deleteLagTime <= Time.time)
 		{
-			//‚Õ‚æ‚ğÁ‚·
+			//ã·ã‚ˆã‚’æ¶ˆã™
 			gameRuleScript.DeletePuyo();
-			//Á‚·‚Ì‰¹Ä¶
+			//æ¶ˆã™æ™‚ã®éŸ³å†ç”Ÿ
 			AudioScript.InstanceAudioScript.PlayDeleteSound();
 			return;
 		}

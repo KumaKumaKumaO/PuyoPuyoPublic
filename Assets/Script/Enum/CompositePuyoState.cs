@@ -1,5 +1,5 @@
 /// <summary>
-/// ‘€ì’†‚Ì‚Õ‚æó‘Ô
+/// æ“ä½œä¸­ã®ã·ã‚ˆçŠ¶æ…‹
 /// </summary>
 public enum CompositePuyoState
 {

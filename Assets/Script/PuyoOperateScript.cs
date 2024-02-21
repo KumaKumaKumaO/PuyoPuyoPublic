@@ -1,20 +1,20 @@
 // ---------------------------------------------------------
 // PuyoOperateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using Interface;
 
 /// <summary>
-/// “ü—Í‚ğ“`‚¦‚éƒNƒ‰ƒX
+/// å…¥åŠ›ã‚’ä¼ãˆã‚‹ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class PuyoOperateScript
 {
-	//ƒ^ƒCƒ}[
+	//ã‚¿ã‚¤ãƒãƒ¼
 	private OperationTimerScript _timerScript = default;
 
 	public PuyoOperateScript()
@@ -24,61 +24,61 @@ public class PuyoOperateScript
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ğ‘€ì‚·‚é
+	/// ã·ã‚ˆã‚’æ“ä½œã™ã‚‹
 	/// </summary>
-	/// <param name="compositePuyoOperatable">‘€ì‚µ‚½‚¢‚Õ‚æ‚Ì‚Ü‚Æ‚Ü‚è</param>
-	/// <param name="input">“ü—Í</param>
+	/// <param name="compositePuyoOperatable">æ“ä½œã—ãŸã„ã·ã‚ˆã®ã¾ã¨ã¾ã‚Š</param>
+	/// <param name="input">å…¥åŠ›</param>
 	public void PuyoControl(ICompositePuyoOperatable compositePuyoOperatable, IInput input)
 	{
-		//ƒ^ƒCƒ}[‚ªI—¹‚µ‚½‚ç
+		//ã‚¿ã‚¤ãƒãƒ¼ãŒçµ‚äº†ã—ãŸã‚‰
 		if (_timerScript.TimerStateUpdate() == TimerState.Termination)
 		{
-			//‚P‚Â‰º‚°‚é
+			//ï¼‘ã¤ä¸‹ã’ã‚‹
 			compositePuyoOperatable.MoveCompositePuyo(Vector2.down);
-			//ƒ^ƒCƒ}[‚ğ‰Šú‰»‚·‚é
+			//ã‚¿ã‚¤ãƒãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
 			_timerScript.TimerInitialization();
 		}
 
-		//‰E‚ÉˆÚ“®‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//å³ã«ç§»å‹•ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (input.IsRightMove())
 		{
-			//‰E‚ÉˆÚ“®‚·‚é
+			//å³ã«ç§»å‹•ã™ã‚‹
 			compositePuyoOperatable.MoveCompositePuyo(Vector2.right);
 		}
 
-		//¶‚ÉˆÚ“®‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//å·¦ã«ç§»å‹•ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (input.IsLeftMove())
 		{
-			//¶‚ÉˆÚ“®‚·‚é
+			//å·¦ã«ç§»å‹•ã™ã‚‹
 			compositePuyoOperatable.MoveCompositePuyo(Vector2.left);
 		}
 
-		//‰º‚ÉˆÚ“®‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//ä¸‹ã«ç§»å‹•ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (input.IsDownMove())
 		{
-			//‰º‚ÉˆÚ“®‚·‚é
+			//ä¸‹ã«ç§»å‹•ã™ã‚‹
 			compositePuyoOperatable.MoveCompositePuyo(Vector2.down);
-			//ƒ^ƒCƒ}[‚ğ‰Šú‰»‚·‚é
+			//ã‚¿ã‚¤ãƒãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
 			_timerScript.TimerInitialization();
 		}
-		//ƒn[ƒhƒhƒƒbƒv‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//ãƒãƒ¼ãƒ‰ãƒ‰ãƒ­ãƒƒãƒ—ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		else if (input.IsHardDrop())
 		{
-			//ƒn[ƒhƒhƒƒbƒv‚ğ‚·‚é
+			//ãƒãƒ¼ãƒ‰ãƒ‰ãƒ­ãƒƒãƒ—ã‚’ã™ã‚‹
 			compositePuyoOperatable.HardDropCompositePuyo();
 		}
 
-		//‰E‚É‰ñ“]‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//å³ã«å›è»¢ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (input.IsRightTurn())
 		{
-			//‰E‚É‰ñ“]‚·‚é
+			//å³ã«å›è»¢ã™ã‚‹
 			compositePuyoOperatable.RotationCompositePuyo(RotateDirection.Right);
 		}
 
-		//¶‚É‰ñ“]‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
+		//å·¦ã«å›è»¢ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
 		if (input.IsLeftTurn())
 		{
-			//¶‚É‰ñ“]‚·‚é
+			//å·¦ã«å›è»¢ã™ã‚‹
 			compositePuyoOperatable.RotationCompositePuyo(RotateDirection.Left);
 		}
 

@@ -1,26 +1,26 @@
 // ---------------------------------------------------------
 // PlayFieldManagerScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using Interface;
 
 /// <summary>
-/// ƒQ[ƒ€‚ÌƒtƒB[ƒ‹ƒh‚ğŠÇ—‚·‚é
+/// ã‚²ãƒ¼ãƒ æ™‚ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç®¡ç†ã™ã‚‹
 /// </summary>
 public class PlayFieldManagerScript : IGameManagerStateChangable
 {
-	//‘S‘Ì‚ÌƒIƒuƒWƒFƒNƒg‚ğŠÇ—‚·‚éƒNƒ‰ƒX
+	//å…¨ä½“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç®¡ç†ã™ã‚‹ã‚¯ãƒ©ã‚¹
 	private FieldObjectManagerScript _fieldObjectManagerScript = default;
 	private GameObject _pauseCanvasObject = default;
 	private GameObject _gameOverCanvasObject = default;
-	//Œ»İ‚Ìó‘Ô
+	//ç¾åœ¨ã®çŠ¶æ…‹
 	private BaseGameStateScript _nowGameState = default;
-	//‘O‰ñ‚ÌƒXƒe[ƒg
+	//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	private BaseGameStateScript _beforeState = default;
 	private IInput _input = default;
 
@@ -29,7 +29,7 @@ public class PlayFieldManagerScript : IGameManagerStateChangable
 	public FieldObjectManagerScript FieldObjectManagerScript { get { return _fieldObjectManagerScript; } }
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	public PlayFieldManagerScript(IInput input, GameData gameData, ObjectPoolScript objectPoolScript, GameObject pauseCanvas, GameObject gameOverCanvas)
 	{
@@ -38,102 +38,102 @@ public class PlayFieldManagerScript : IGameManagerStateChangable
 		_fieldObjectManagerScript = new FieldObjectManagerScript(gameData, objectPoolScript);
 		_pauseCanvasObject = pauseCanvas;
 		_gameOverCanvasObject = gameOverCanvas;
-		//ƒQ[ƒ€ƒI[ƒo[ƒLƒƒƒ“ƒoƒX‚ğ”ñ•\¦‚É‚·‚é
+		//ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’éè¡¨ç¤ºã«ã™ã‚‹
 		_gameOverCanvasObject.SetActive(false);
-		//ƒ|[ƒYƒLƒƒƒ“ƒoƒX‚ğ”ñ•\¦‚É‚·‚é
+		//ãƒãƒ¼ã‚ºã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’éè¡¨ç¤ºã«ã™ã‚‹
 		_pauseCanvasObject.SetActive(false);
-		//Å‰‚ÌƒXƒe[ƒg‚ğƒvƒŒƒC‚Éİ’è
+		//æœ€åˆã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ãƒ—ãƒ¬ã‚¤ã«è¨­å®š
 		_nowGameState = new PlayStateScript(this, this._input, _fieldObjectManagerScript);
 		_nowGameState.Enter();
 	}
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[ó‘Ô‚Ö‘JˆÚ
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼çŠ¶æ…‹ã¸é·ç§»
 	/// </summary>
 	public void ChangeToGameOverState()
 	{
-		//I—¹‚·‚é
+		//çµ‚äº†ã™ã‚‹
 		_nowGameState.Exit();
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğã‘‚«‚·‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šæ›¸ãã™ã‚‹
 		_beforeState = _nowGameState;
-		//V‚µ‚­ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+		//æ–°ã—ãã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 		_nowGameState = new GameOverStateScript(this, _input, _gameOverCanvasObject);
-		//ŠJn‚·‚é
+		//é–‹å§‹ã™ã‚‹
 		_nowGameState.Enter();
 	}
 
 	/// <summary>
-	/// ‚Õ‚æíœó‘Ô‚Ö‘JˆÚ
+	/// ã·ã‚ˆå‰Šé™¤çŠ¶æ…‹ã¸é·ç§»
 	/// </summary>
 	public void ChangeToPuyoStayState()
 	{
-		//I—¹‚·‚é
+		//çµ‚äº†ã™ã‚‹
 		_nowGameState.Exit();
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğã‘‚«‚·‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šæ›¸ãã™ã‚‹
 		_beforeState = _nowGameState;
-		//V‚µ‚­ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+		//æ–°ã—ãã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 		_nowGameState = new StayStateScript(this, _input, _fieldObjectManagerScript, _canDeletePuyoValue);
-		//ŠJn‚·‚é
+		//é–‹å§‹ã™ã‚‹
 		_nowGameState.Enter();
 	}
 
 	/// <summary>
-	/// ƒvƒŒƒCƒ„[‘€ìó‘Ô‚Ö‘JˆÚ
+	/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æ“ä½œçŠ¶æ…‹ã¸é·ç§»
 	/// </summary>
 	public void ChangeToPlayState()
 	{
-		//I—¹‚·‚é
+		//çµ‚äº†ã™ã‚‹
 		_nowGameState.Exit();
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğã‘‚«‚·‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šæ›¸ãã™ã‚‹
 		_beforeState = _nowGameState;
-		//V‚µ‚­ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+		//æ–°ã—ãã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 		_nowGameState = new PlayStateScript(this, _input, _fieldObjectManagerScript);
-		//ŠJn‚·‚é
+		//é–‹å§‹ã™ã‚‹
 		_nowGameState.Enter();
 	}
 
 	/// <summary>
-	/// ƒ|[ƒYó‘Ô‚Ö‘JˆÚ
+	/// ãƒãƒ¼ã‚ºçŠ¶æ…‹ã¸é·ç§»
 	/// </summary>
 	public void ChangeToPauseState()
 	{
-		//I—¹‚·‚é
+		//çµ‚äº†ã™ã‚‹
 		_nowGameState.Exit();
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğã‘‚«‚·‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šæ›¸ãã™ã‚‹
 		_beforeState = _nowGameState;
-		//V‚µ‚­ƒCƒ“ƒXƒ^ƒ“ƒX‚ğ¶¬‚·‚é
+		//æ–°ã—ãã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆã™ã‚‹
 		_nowGameState = new PauseStateScript(this, _input, _pauseCanvasObject);
-		//ŠJn‚·‚é
+		//é–‹å§‹ã™ã‚‹
 		_nowGameState.Enter();
 	}
 
 	/// <summary>
-	/// ˆê‚Â‘O‚ÌƒXƒe[ƒg‚É–ß‚·
+	/// ä¸€ã¤å‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«æˆ»ã™
 	/// </summary>
 	public void ChangeToBeforeState()
 	{
-		//—áŠOˆ—
+		//ä¾‹å¤–å‡¦ç†
 		if (_beforeState == null)
 		{
-			Debug.LogError("‘O‚ÌƒXƒe[ƒg‚ª‚È‚¢‚½‚ßƒXƒe[ƒg‚ğ•ÏX‚µ‚Ü‚¹‚ñB");
+			Debug.LogError("å‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆãŒãªã„ãŸã‚ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å¤‰æ›´ã—ã¾ã›ã‚“ã€‚");
 			return;
 		}
-		//I—¹‚·‚é
+		//çµ‚äº†ã™ã‚‹
 		_nowGameState.Exit();
-		//Œ»İ‚ÌƒXƒe[ƒg‚ğƒoƒbƒtƒ@‚·‚é
+		//ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ãƒãƒƒãƒ•ã‚¡ã™ã‚‹
 		BaseGameStateScript nowGameStateTemp = _nowGameState;
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğŒ»İ‚ÌƒXƒe[ƒg‚É“ü‚ê‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«å…¥ã‚Œã‚‹
 		_nowGameState = _beforeState;
-		//‘O‰ñ‚ÌƒXƒe[ƒg‚ğã‘‚«‚·‚é
+		//å‰å›ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šæ›¸ãã™ã‚‹
 		_beforeState = nowGameStateTemp;
-		//ŠJn‚·‚é
+		//é–‹å§‹ã™ã‚‹
 		_nowGameState.Enter();
-		//QÆ‚ğØ‚é
+		//å‚ç…§ã‚’åˆ‡ã‚‹
 		nowGameStateTemp = null;
 	}
 
 	/// <summary>
-	/// Œ»İ‚ÌƒXƒe[ƒg‚ÌÀs
+	/// ç¾åœ¨ã®ã‚¹ãƒ†ãƒ¼ãƒˆã®å®Ÿè¡Œ
 	/// </summary>
 	public void PlayUpdate()
 	{

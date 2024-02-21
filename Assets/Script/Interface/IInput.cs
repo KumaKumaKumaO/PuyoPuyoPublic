@@ -1,4 +1,4 @@
-﻿namespace Interface
+namespace Interface
 {
 	/// <summary>
 	/// 入力

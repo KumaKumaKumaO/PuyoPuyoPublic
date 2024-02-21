@@ -1,16 +1,16 @@
 // ---------------------------------------------------------
 // ObjectPoolScript.cs
 //
-// ì¬“ú:10/31
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/31
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒIƒuƒWƒFƒNƒgƒv[ƒ‹
+/// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒ—ãƒ¼ãƒ«
 /// </summary>
 public class ObjectPoolScript : MonoBehaviour
 {
@@ -21,10 +21,10 @@ public class ObjectPoolScript : MonoBehaviour
 	private Queue<PuyoScript> _puyoQueue = new Queue<PuyoScript>();
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <param name="fieldCount">ƒtƒB[ƒ‹ƒh‚ÌŒÂ”</param>
-	/// <param name="fieldSize">‚P‚Â‚ÌƒtƒB[ƒ‹ƒh‚Ì‘å‚«‚³</param>
+	/// <param name="fieldCount">ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å€‹æ•°</param>
+	/// <param name="fieldSize">ï¼‘ã¤ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å¤§ãã•</param>
 	public void Initialization(int fieldCount, int fieldSize)
 	{
 		PuyoScript puyoScriptTemp = default;
@@ -37,10 +37,10 @@ public class ObjectPoolScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢‚Õ‚æ‚Ìæ‚èo‚µ
+	/// åˆæœŸåŒ–ã•ã‚Œã¦ã„ãªã„ã·ã‚ˆã®å–ã‚Šå‡ºã—
 	/// </summary>
-	/// <param name="fieldDataType">”z—ñ‚Å‚Ìƒf[ƒ^</param>
-	/// <returns>æ‚èo‚µ‚½‚Õ‚æ</returns>
+	/// <param name="fieldDataType">é…åˆ—ã§ã®ãƒ‡ãƒ¼ã‚¿</param>
+	/// <returns>å–ã‚Šå‡ºã—ãŸã·ã‚ˆ</returns>
 	public PuyoScript GetNonInitPuyo(FieldDataType fieldDataType)
 	{
 		PuyoScript puyoScriptTemp;
@@ -59,9 +59,9 @@ public class ObjectPoolScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ğíœ‚·‚é
+	/// ã·ã‚ˆã‚’å‰Šé™¤ã™ã‚‹
 	/// </summary>
-	/// <param name="puyoScript">‚Õ‚æ‚Ìƒf[ƒ^</param>
+	/// <param name="puyoScript">ã·ã‚ˆã®ãƒ‡ãƒ¼ã‚¿</param>
 	public void DeletePuyo(PuyoScript puyoScript)
 	{
 		puyoScript.MyGameObject.SetActive(false);

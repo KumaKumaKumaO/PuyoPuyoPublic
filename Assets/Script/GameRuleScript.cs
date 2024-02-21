@@ -1,32 +1,32 @@
 // ---------------------------------------------------------
 // GameRuleScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using System.Collections.Generic;
 using Interface;
 
 /// <summary>
-/// ‚Õ‚æ‚ªÁ‚¦‚é”»’è‚ÆƒQ[ƒ€ƒI[ƒo[”»’è
+/// ã·ã‚ˆãŒæ¶ˆãˆã‚‹åˆ¤å®šã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼åˆ¤å®š
 /// </summary>
 public class GameRuleScript
 {
 	/// <summary>
-	/// ”z—ñ“à‚Å‚ÌêŠ
+	/// é…åˆ—å†…ã§ã®å ´æ‰€
 	/// </summary>
 	private struct ArrayPosData
 	{
 		int _row;
 		int _col;
 		/// <summary>
-		/// —ñ
+		/// åˆ—
 		/// </summary>
 		public int Row { get { return _row; } }
 		/// <summary>
-		/// s
+		/// è¡Œ
 		/// </summary>
 		public int Col { get { return _col; } }
 		public ArrayPosData(int row, int col)
@@ -36,22 +36,22 @@ public class GameRuleScript
 		}
 	}
 
-	//Á‚¦‚é‚½‚ß‚É•K—v‚È‚Õ‚æ‚Ì”
+	//æ¶ˆãˆã‚‹ãŸã‚ã«å¿…è¦ãªã·ã‚ˆã®æ•°
 	private int canPuyoDeleteValue = 4;
-	//ƒtƒB[ƒ‹ƒh‚©‚çƒIƒuƒWƒFƒNƒg‚ğÁ‚·‚½‚ß‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™ãŸã‚ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
 	private IFieldPuyoObjectRemovable _fieldObjectRemovable = default;
-	//ƒtƒB[ƒ‹ƒh”z—ñ‚©‚çƒf[ƒ^‚ğæ“¾‚·‚é‚½‚ß‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX
+	//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰é…åˆ—ã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã™ã‚‹ãŸã‚ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹
 	private IFieldArrayDataGetable _fieldDataGetable = default;
-	//’Tõ‚µ‚½‚Õ‚æ‚ÌêŠƒf[ƒ^‚ğŠi”[‚·‚éƒŠƒXƒg
+	//æ¢ç´¢ã—ãŸã·ã‚ˆã®å ´æ‰€ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
 	private List<ArrayPosData> _searchedFieldDataPosList = new List<ArrayPosData>();
-	//Á‚·‚×‚«‚Õ‚æ‚ÌêŠƒf[ƒ^‚ğŠi”[‚·‚éƒŠƒXƒg
+	//æ¶ˆã™ã¹ãã·ã‚ˆã®å ´æ‰€ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
 	private List<ArrayPosData> _deletePuyoDataPosList = new List<ArrayPosData>();
 
-	//’Tõ‚µ‚½‚©
+	//æ¢ç´¢ã—ãŸã‹
 	private bool isSearched = false;
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	/// <param name="fieldDataScript"></param>
 	/// <param name="fieldObjectManagerScript"></param>
@@ -64,9 +64,9 @@ public class GameRuleScript
 	}
 
 	/// <summary>
-	/// ƒQ[ƒ€ƒI[ƒo[‚É‚È‚é‚©‚Ç‚¤‚©
+	/// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã«ãªã‚‹ã‹ã©ã†ã‹
 	/// </summary>
-	/// <returns>ƒQ[ƒ€ƒI[ƒo[ƒ][ƒ“‚É‰½‚©‚ ‚é‚©</returns>
+	/// <returns>ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã‚¾ãƒ¼ãƒ³ã«ä½•ã‹ã‚ã‚‹ã‹</returns>
 	public bool IsGameOver()
 	{
 		return _fieldDataGetable.GetFieldData(_fieldDataGetable.FieldDataArrayRowLength / 2, _fieldDataGetable.FieldDataArrayColLength - 1 - 2)
@@ -74,107 +74,107 @@ public class GameRuleScript
 	}
 
 	/// <summary>
-	/// Á‚¹‚é‚Õ‚æ‚ªˆê‚Â‚Å‚à‘¶İ‚·‚é‚©
+	/// æ¶ˆã›ã‚‹ã·ã‚ˆãŒä¸€ã¤ã§ã‚‚å­˜åœ¨ã™ã‚‹ã‹
 	/// </summary>
 	public bool ContainDeletePuyo()
 	{
-		//”z—ñƒf[ƒ^‚Ìˆê•Û‘¶—p•Ï”
+		//é…åˆ—ãƒ‡ãƒ¼ã‚¿ã®ä¸€æ™‚ä¿å­˜ç”¨å¤‰æ•°
 		FieldDataType fieldDataTypeTemp;
-		//”z—ñ‚ğ’[‚©‚ç“Ç‚İ‚Ş
+		//é…åˆ—ã‚’ç«¯ã‹ã‚‰èª­ã¿è¾¼ã‚€
 		for (int i = 0; i < _fieldDataGetable.FieldDataArrayColLength; i++)
 		{
 			for (int k = 0; k < _fieldDataGetable.FieldDataArrayRowLength; k++)
 			{
-				//”z—ñƒf[ƒ^‚ğˆê“I‚É•Û‘¶
+				//é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’ä¸€æ™‚çš„ã«ä¿å­˜
 				fieldDataTypeTemp = _fieldDataGetable.GetFieldData(k, i);
-				//”z—ñƒf[ƒ^‚ª–³‚¢‚Ü‚½‚ÍA•Ç‚Ìê‡
+				//é…åˆ—ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã„ã¾ãŸã¯ã€å£ã®å ´åˆ
 				if (fieldDataTypeTemp == FieldDataType.None
 					|| fieldDataTypeTemp == FieldDataType.Wall)
 				{
-					//Ÿ‚Ìƒf[ƒ^‚ğ“Ç‚Ş‚½‚ß‚Éw•W‚ği‚ß‚é
+					//æ¬¡ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚€ãŸã‚ã«æŒ‡æ¨™ã‚’é€²ã‚ã‚‹
 					continue;
 				}
-				//—×Ú‚µ‚Ä‚¢‚é“¯‚¶í—Ş‚Ì‚Õ‚æ‚ğ’Tõ—pƒŠƒXƒg‚ÉŠi”[‚·‚é
+				//éš£æ¥ã—ã¦ã„ã‚‹åŒã˜ç¨®é¡ã®ã·ã‚ˆã‚’æ¢ç´¢ç”¨ãƒªã‚¹ãƒˆã«æ ¼ç´ã™ã‚‹
 				DeleteDitectPuyo(k, i, fieldDataTypeTemp, _searchedFieldDataPosList);
-				//ª‚ÅXV‚³‚ê‚½’Tõ—pƒŠƒXƒg‚Ì—v‘f”‚ğÁ‚·‚½‚ß‚É•K—v‚È‚Õ‚æ‚Ì”‚ª’´‚¦‚Ä‚¢‚½‚ç
+				//â†‘ã§æ›´æ–°ã•ã‚ŒãŸæ¢ç´¢ç”¨ãƒªã‚¹ãƒˆã®è¦ç´ æ•°ã‚’æ¶ˆã™ãŸã‚ã«å¿…è¦ãªã·ã‚ˆã®æ•°ãŒè¶…ãˆã¦ã„ãŸã‚‰
 				if (_searchedFieldDataPosList.Count >= canPuyoDeleteValue)
 				{
-					//ƒŠƒXƒg‚Ì’†g‚ğ‘S‚Äíœ—\’èƒŠƒXƒg‚É’Ç‰Á‚·‚é
+					//ãƒªã‚¹ãƒˆã®ä¸­èº«ã‚’å…¨ã¦å‰Šé™¤äºˆå®šãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹
 					foreach (ArrayPosData arrayPosData in _searchedFieldDataPosList)
 					{
 						_deletePuyoDataPosList.Add(arrayPosData);
 					}
 				}
-				//’Tõ—pƒŠƒXƒg‚Ì‰Šú‰»
+				//æ¢ç´¢ç”¨ãƒªã‚¹ãƒˆã®åˆæœŸåŒ–
 				_searchedFieldDataPosList.Clear();
 			}
 		}
-		//’Tõ‚ªs‚í‚ê‚½ƒtƒ‰ƒO‚ğƒIƒ“‚É‚·‚é
+		//æ¢ç´¢ãŒè¡Œã‚ã‚ŒãŸãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ³ã«ã™ã‚‹
 		isSearched = true;
-		//Á‚·—\’èƒŠƒXƒg‚Ì—v‘f”‚ª‚O‚æ‚è‘å‚«‚¢ê‡‚É^‚ğ•Ô‚·
+		//æ¶ˆã™äºˆå®šãƒªã‚¹ãƒˆã®è¦ç´ æ•°ãŒï¼ã‚ˆã‚Šå¤§ãã„å ´åˆã«çœŸã‚’è¿”ã™
 		return (_deletePuyoDataPosList.Count > 0);
 	}
 
 	/// <summary>
-	/// Á‚¹‚é‚Õ‚æ‚ğÁ‚·
+	/// æ¶ˆã›ã‚‹ã·ã‚ˆã‚’æ¶ˆã™
 	/// </summary>
 	public void DeletePuyo()
 	{
-		//’Tõ‚ªs‚í‚ê‚½‚©
+		//æ¢ç´¢ãŒè¡Œã‚ã‚ŒãŸã‹
 		if (!isSearched)
 		{
-			//Á‚¹‚é‚Õ‚æ‚ª‘¶İ‚·‚é‚©
+			//æ¶ˆã›ã‚‹ã·ã‚ˆãŒå­˜åœ¨ã™ã‚‹ã‹
 			ContainDeletePuyo();
 		}
-		//”z—ñ‚Ì’†g‚ğæ‚èo‚·
+		//é…åˆ—ã®ä¸­èº«ã‚’å–ã‚Šå‡ºã™
 		foreach (ArrayPosData arrayPosData in _deletePuyoDataPosList)
 		{
-			//w’è‚µ‚½ˆÊ’u‚É‚ ‚éƒIƒuƒWƒFƒNƒg‚Ì”jŠü
+			//æŒ‡å®šã—ãŸä½ç½®ã«ã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç ´æ£„
 			_fieldObjectRemovable.RemoveFieldObject(arrayPosData.Row, arrayPosData.Col);
 		}
-		//íœƒŠƒXƒg‚ğ‰Šú‰»‚·‚é
+		//å‰Šé™¤ãƒªã‚¹ãƒˆã‚’åˆæœŸåŒ–ã™ã‚‹
 		_deletePuyoDataPosList.Clear();
-		//’Tõ‚ªs‚í‚ê‚½ƒtƒ‰ƒO‚ğƒIƒt‚É‚·‚é
+		//æ¢ç´¢ãŒè¡Œã‚ã‚ŒãŸãƒ•ãƒ©ã‚°ã‚’ã‚ªãƒ•ã«ã™ã‚‹
 		isSearched = false;
 	}
 
 	/// <summary>
-	/// —×Ú‚µ‚Ä‚¢‚é“¯‚¶í—Ş‚Ì‚Õ‚æ‚Ì”z—ñ“àˆÊ’uƒf[ƒ^‚ğƒŠƒXƒg‚É•Û‘¶‚·‚é
-	/// Ä‹A“I‚ÉŒÄ‚Ño‚·
+	/// éš£æ¥ã—ã¦ã„ã‚‹åŒã˜ç¨®é¡ã®ã·ã‚ˆã®é…åˆ—å†…ä½ç½®ãƒ‡ãƒ¼ã‚¿ã‚’ãƒªã‚¹ãƒˆã«ä¿å­˜ã™ã‚‹
+	/// å†å¸°çš„ã«å‘¼ã³å‡ºã™
 	/// </summary>
-	/// <param name="row">’T‚µ‚½‚¢—ñ</param>
-	/// <param name="col">’T‚µ‚½‚¢s</param>
-	/// <param name="fieldDataType">’T‚µ‚½‚¢‚Õ‚æ‚Ìí—Ş</param>
-	/// <param name="posDataList">ƒf[ƒ^‚ğ•Û‘¶‚·‚éƒŠƒXƒg</param>
+	/// <param name="row">æ¢ã—ãŸã„åˆ—</param>
+	/// <param name="col">æ¢ã—ãŸã„è¡Œ</param>
+	/// <param name="fieldDataType">æ¢ã—ãŸã„ã·ã‚ˆã®ç¨®é¡</param>
+	/// <param name="posDataList">ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹ãƒªã‚¹ãƒˆ</param>
 	private void DeleteDitectPuyo(int row, int col, FieldDataType fieldDataType, List<ArrayPosData> posDataList)
 	{
-		//’Tõ‚µ‚½‚Õ‚æƒŠƒXƒg“à‚ÉA’Tõ‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éƒf[ƒ^‚ª–³‚¢‚©‚ğŠm”F‚·‚é
+		//æ¢ç´¢ã—ãŸã·ã‚ˆãƒªã‚¹ãƒˆå†…ã«ã€æ¢ç´¢ã—ã‚ˆã†ã¨ã—ã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ãŒç„¡ã„ã‹ã‚’ç¢ºèªã™ã‚‹
 		foreach (ArrayPosData arrayPosData in posDataList)
 		{
 			if (arrayPosData.Row == row && arrayPosData.Col == col)
 			{
-				//‚ ‚Á‚½ê‡‚Í’Tõ‚ğI—¹‚·‚é
+				//ã‚ã£ãŸå ´åˆã¯æ¢ç´¢ã‚’çµ‚äº†ã™ã‚‹
 				return;
 			}
 		}
-		//’Tõ‚µ‚½ƒŠƒXƒg‚Éƒf[ƒ^‚ğŠi”[‚·‚é
+		//æ¢ç´¢ã—ãŸãƒªã‚¹ãƒˆã«ãƒ‡ãƒ¼ã‚¿ã‚’æ ¼ç´ã™ã‚‹
 		posDataList.Add(new ArrayPosData(row, col));
-		//’Tõ‚µ‚Ä‚¢‚é‚Õ‚æ‚Ì—ñ + 1‚ª“¯‚¶‚Õ‚æ‚Ìê‡
+		//æ¢ç´¢ã—ã¦ã„ã‚‹ã·ã‚ˆã®åˆ— + 1ãŒåŒã˜ã·ã‚ˆã®å ´åˆ
 		if (_fieldDataGetable.GetFieldData(row + 1, col) == fieldDataType)
 		{
 			DeleteDitectPuyo(row + 1, col, fieldDataType, posDataList);
 		}
-		//’Tõ‚µ‚Ä‚¢‚é‚Õ‚æ‚Ì—ñ - 1‚ª“¯‚¶‚Õ‚æ‚Ìê‡
+		//æ¢ç´¢ã—ã¦ã„ã‚‹ã·ã‚ˆã®åˆ— - 1ãŒåŒã˜ã·ã‚ˆã®å ´åˆ
 		if (_fieldDataGetable.GetFieldData(row - 1, col) == fieldDataType)
 		{
 			DeleteDitectPuyo(row - 1, col, fieldDataType, posDataList);
 		}
-		//’Tõ‚µ‚Ä‚¢‚é‚Õ‚æ‚Ìs + 1‚ª“¯‚¶‚Õ‚æ‚Ìê‡
+		//æ¢ç´¢ã—ã¦ã„ã‚‹ã·ã‚ˆã®è¡Œ + 1ãŒåŒã˜ã·ã‚ˆã®å ´åˆ
 		if (_fieldDataGetable.GetFieldData(row, col + 1) == fieldDataType)
 		{
 			DeleteDitectPuyo(row, col + 1, fieldDataType, posDataList);
 		}
-		//’Tõ‚µ‚Ä‚¢‚é‚Õ‚æ‚Ìs - 1‚ª“¯‚¶‚Õ‚æ‚Ìê‡
+		//æ¢ç´¢ã—ã¦ã„ã‚‹ã·ã‚ˆã®è¡Œ - 1ãŒåŒã˜ã·ã‚ˆã®å ´åˆ
 		if (_fieldDataGetable.GetFieldData(row, col - 1) == fieldDataType)
 		{
 			DeleteDitectPuyo(row, col - 1, fieldDataType, posDataList);

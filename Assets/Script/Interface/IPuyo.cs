@@ -2,7 +2,7 @@ using UnityEngine;
 namespace Interface
 {
 	/// <summary>
-	/// ‚Õ‚æ‚Ìƒf[ƒ^‚ğæ“¾‚Å‚«‚é
+	/// ã·ã‚ˆã®ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—ã§ãã‚‹
 	/// </summary>
 	public interface IPuyoDataGetable
 	{
@@ -18,34 +18,34 @@ namespace Interface
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ğ‘€ì‚Å‚«‚é
+	/// ã·ã‚ˆã‚’æ“ä½œã§ãã‚‹
 	/// </summary>
 	public interface IPuyoOperatable
 	{
 		/// <summary>
-		/// ‚Õ‚æ‚ğˆÚ“®‚·‚é
+		/// ã·ã‚ˆã‚’ç§»å‹•ã™ã‚‹
 		/// </summary>
-		/// <param name="moveDirection">ˆÚ“®‚µ‚½‚¢•ûŒü</param>
+		/// <param name="moveDirection">ç§»å‹•ã—ãŸã„æ–¹å‘</param>
 		void MovePuyo(Vector2 moveDirection);
 
 		/// <summary>
-		/// ‚Õ‚æ‚ªˆÚ“®‚Å‚«‚é‚©‚Ì”»’è
+		/// ã·ã‚ˆãŒç§»å‹•ã§ãã‚‹ã‹ã®åˆ¤å®š
 		/// </summary>
-		/// <param name="direction">Šm”F‚·‚é•ûŒü</param>
-		/// <param name="fieldDataGetable">”z—ñƒf[ƒ^</param>
-		/// <returns>‚Õ‚æ‚ªˆÚ“®‚Å‚«‚é‚©</returns>
+		/// <param name="direction">ç¢ºèªã™ã‚‹æ–¹å‘</param>
+		/// <param name="fieldDataGetable">é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
+		/// <returns>ã·ã‚ˆãŒç§»å‹•ã§ãã‚‹ã‹</returns>
 		bool CanMovePuyo(Vector2 direction, IFieldArrayDataGetable fieldDataGetable);
 
 		/// <summary>
-		/// ‚Õ‚æ‚ğ‚Å‚«‚é‚¾‚¯‰º‚É‰º‚°‚é
+		/// ã·ã‚ˆã‚’ã§ãã‚‹ã ã‘ä¸‹ã«ä¸‹ã’ã‚‹
 		/// </summary>
-		/// <param name="fieldDataGetable">”z—ñƒf[ƒ^</param>
+		/// <param name="fieldDataGetable">é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
 		void FallPuyo(IFieldArrayDataGetable fieldDataGetable);
 
 	}
 
 	/// <summary>
-	/// ‘€ìAæ“¾‚Ì‚Ç‚¿‚ç‚à‚Å‚«‚é
+	/// æ“ä½œã€å–å¾—ã®ã©ã¡ã‚‰ã‚‚ã§ãã‚‹
 	/// </summary>
 
 	public interface IPuyoControllable : IPuyoOperatable, IPuyoDataGetable

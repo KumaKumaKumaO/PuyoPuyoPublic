@@ -1,21 +1,21 @@
 // ---------------------------------------------------------
 // CompositePuyoScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using Interface;
 
 /// <summary>
-/// ‚Õ‚æ“ñ‚Â‚ğ‚Ü‚Æ‚ß‚Ä“®‚©‚·ƒNƒ‰ƒX
+/// ã·ã‚ˆäºŒã¤ã‚’ã¾ã¨ã‚ã¦å‹•ã‹ã™ã‚¯ãƒ©ã‚¹
 /// </summary>
 public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoStateChackable
 {
 	/// <summary>
-	/// Œ»İ‚Ì‰ñ“]‚ÌƒXƒe[ƒg
+	/// ç¾åœ¨ã®å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆ
 	/// </summary>
 	private enum RotationState
 	{
@@ -44,287 +44,301 @@ public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoState
 	}
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
 	public void Initialization()
 	{
-		//©g‚ÌƒXƒe[ƒg‚ğu“®‚¯‚év‚É•ÏX‚·‚é
+		//è‡ªèº«ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã€Œå‹•ã‘ã‚‹ã€ã«å¤‰æ›´ã™ã‚‹
 		this._myState = CompositePuyoState.CanMoving;
-		//‰ñ“]ó‹µ‚ğ‰E‚Éİ’è‚·‚é
+		//å›è»¢çŠ¶æ³ã‚’å³ã«è¨­å®šã™ã‚‹
 		this._myRotationState = RotationState.Right;
 	}
 
 	/// <summary>
-	/// ‘€ì‚·‚é“ñ‚Â‚Ì‚Õ‚æ‚ğw’è‚µ‚½ˆÊ’u‚ÉˆÚ“®‚·‚é
+	/// æ“ä½œã™ã‚‹äºŒã¤ã®ã·ã‚ˆã‚’æŒ‡å®šã—ãŸä½ç½®ã«ç§»å‹•ã™ã‚‹
 	/// </summary>
-	/// <param name="movePos">ˆÚ“®æ</param>
+	/// <param name="movePos">ç§»å‹•å…ˆ</param>
 	public void MoveFieldCompositePuyo(Vector2 movePos, Vector2 offsetVector)
 	{
-		//“ñ‚Â‚Ì‚Õ‚æ‚ÌˆÊ’u‚ğˆÚ“®‚·‚é
+		//äºŒã¤ã®ã·ã‚ˆã®ä½ç½®ã‚’ç§»å‹•ã™ã‚‹
 		foreach (IPuyoDataGetable puyoDataGetable in _puyos)
 		{
 			puyoDataGetable.MyTransform.position = movePos;
 		}
-		//“ñ‚Â–Ú‚Ì‚Õ‚æ‚ÌˆÊ’u‚ğ‰E‚É‚¸‚ç‚·
+		//äºŒã¤ç›®ã®ã·ã‚ˆã®ä½ç½®ã‚’å³ã«ãšã‚‰ã™
 		_puyos[1].MovePuyo(offsetVector);
 	}
 
 	/// <summary>
-	/// ƒtƒB[ƒ‹ƒhã‚ÅˆÚ“®‚·‚é
+	/// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ä¸Šã§ç§»å‹•ã™ã‚‹
 	/// </summary>
-	/// <param name="moveVector">“®‚­ƒxƒNƒgƒ‹</param>
+	/// <param name="moveVector">å‹•ããƒ™ã‚¯ãƒˆãƒ«</param>
 	public void MoveCompositePuyo(Vector2 moveVector)
 	{
-
-		if (_myState == CompositePuyoState.CanMoving)
+		switch (_myState)
 		{
-			//”z—ñ“à‚Ì‚Õ‚æ‚ª“®‚­ƒxƒNƒgƒ‹‚É“®‚¯‚é‚©Šm”F‚·‚é
-			foreach (IPuyoOperatable puyoOperatable in _puyos)
-			{
-				if (!puyoOperatable.CanMovePuyo(moveVector, _fieldArrayDataControllable))
+			//è‡ªèº«ã®ã‚¹ãƒ†ãƒ¼ãƒˆãŒã€Œå‹•ã‘ã‚‹ã€ã®å ´åˆ
+			case CompositePuyoState.CanMoving:
 				{
-					//‚Ç‚¿‚ç‚©‚ª‰º‚ÉˆÚ“®‚Å‚«‚È‚¢ê‡
-					if (moveVector == Vector2.down)
+					//é…åˆ—å†…ã®ã·ã‚ˆãŒå‹•ããƒ™ã‚¯ãƒˆãƒ«ã«å‹•ã‘ã‚‹ã‹ç¢ºèªã™ã‚‹
+					foreach (IPuyoOperatable puyoOperatable in _puyos)
 					{
-						//ƒn[ƒhƒhƒƒbƒv‚É‚·‚é
-						HardDropCompositePuyo();
-						//©g‚ÌƒXƒe[ƒg‚ğuI—¹v‚É‚·‚é
-						_myState = CompositePuyoState.End;
+						if (!puyoOperatable.CanMovePuyo(moveVector, _fieldArrayDataControllable))
+						{
+							//ã©ã¡ã‚‰ã‹ãŒä¸‹ã«ç§»å‹•ã§ããªã„å ´åˆ
+							if (moveVector == Vector2.down)
+							{
+								//ãƒãƒ¼ãƒ‰ãƒ‰ãƒ­ãƒƒãƒ—ã«ã™ã‚‹
+								HardDropCompositePuyo();
+								//è‡ªèº«ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ã€Œçµ‚äº†ã€ã«ã™ã‚‹
+								_myState = CompositePuyoState.End;
+							}
+							return;
+						}
 					}
-					return;
+					//ä¸¡æ–¹ã®ã·ã‚ˆã‚’å‹•ã‹ã—ãŸã„ãƒ™ã‚¯ãƒˆãƒ«ã«å‹•ã‹ã™
+					foreach (IPuyoOperatable puyoOperatable in _puyos)
+					{
+						puyoOperatable.MovePuyo(moveVector);
+					}
+					break;
 				}
-			}
-			//—¼•û‚Ì‚Õ‚æ‚ğ“®‚©‚µ‚½‚¢ƒxƒNƒgƒ‹‚É“®‚©‚·
-			foreach (IPuyoOperatable puyoOperatable in _puyos)
-			{
-				puyoOperatable.MovePuyo(moveVector);
-			}
 		}
 	}
 
 	/// <summary>
-	/// ƒn[ƒhƒhƒƒbƒv
+	/// ãƒãƒ¼ãƒ‰ãƒ‰ãƒ­ãƒƒãƒ—
 	/// </summary>
 	public void HardDropCompositePuyo()
 	{
-		if (_myState == CompositePuyoState.CanMoving)
+		switch (_myState)
 		{
-			//©g‚Ì‰ñ“]‚ÌƒXƒe[ƒg‚ªuãv‚Ìê‡‚Í‰º‘¤‚Ì‚Õ‚æ‚©‚çˆ—‚·‚é
-			if (_myRotationState == RotationState.Top)
-			{
-				for (int i = 0; i < _puyos.Length; i++)
+			//è‡ªèº«ã®ã‚¹ãƒ†ãƒ¼ãƒˆãŒã€Œå‹•ã‘ã‚‹ã€ã®å ´åˆ
+			case CompositePuyoState.CanMoving:
 				{
-					HardDropProcess(i);
+					//è‡ªèº«ã®å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆãŒã€Œä¸Šã€ã®å ´åˆã¯ä¸‹å´ã®ã·ã‚ˆã‹ã‚‰å‡¦ç†ã™ã‚‹
+					if (_myRotationState == RotationState.Top)
+					{
+						for (int i = 0; i < _puyos.Length; i++)
+						{
+							HardDropProcess(i);
+						}
+					}
+					//ãã®ã»ã‹ã®å ´åˆã¯ä¸Šå´ã®ã·ã‚ˆã‹ã‚‰å‡¦ç†ã™ã‚‹
+					else
+					{
+						for (int i = _puyos.Length - 1; i >= 0; i--)
+						{
+							HardDropProcess(i);
+						}
+					}
+					_myState = CompositePuyoState.End;
+					break;
 				}
-			}
-			//‚»‚Ì‚Ù‚©‚Ìê‡‚Íã‘¤‚Ì‚Õ‚æ‚©‚çˆ—‚·‚é
-			else
-			{
-				for (int i = _puyos.Length - 1; i >= 0; i--)
-				{
-					HardDropProcess(i);
-				}
-			}
-			_myState = CompositePuyoState.End;
 		}
 	}
 
 	/// <summary>
-	/// ƒn[ƒhƒhƒƒbƒv‚Ì“®ì
+	/// ãƒãƒ¼ãƒ‰ãƒ‰ãƒ­ãƒƒãƒ—ã®å‹•ä½œ
 	/// </summary>
-	/// <param name="index">‚Ç‚¿‚ç‚Ì‚Õ‚æ‚©‚Ìw•W</param>
+	/// <param name="index">ã©ã¡ã‚‰ã®ã·ã‚ˆã‹ã®æŒ‡æ¨™</param>
 	private void HardDropProcess(int index)
 	{
-		//‚Õ‚æ‚ğ—‚Æ‚¹‚é‚Æ‚±‚Ü‚Å—‚Æ‚·
+		//ã·ã‚ˆã‚’è½ã¨ã›ã‚‹ã¨ã“ã¾ã§è½ã¨ã™
 		_puyos[index].FallPuyo(_fieldArrayDataControllable);
-		//ƒf[ƒ^‚ğ”z—ñ‚ÉŠi”[‚·‚é
+		//ãƒ‡ãƒ¼ã‚¿ã‚’é…åˆ—ã«æ ¼ç´ã™ã‚‹
 		_fieldArrayDataControllable.SetFieldArrayData((_puyos[index]).Row
 			, (_puyos[index]).Col, (_puyos[index]).MyFieldData);
-		//ƒtƒB[ƒ‹ƒh‚Éİ’u‚³‚ê‚½ƒIƒuƒWƒFƒNƒg‚Æ‚µ‚ÄŠi”[‚·‚é
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã«è¨­ç½®ã•ã‚ŒãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¨ã—ã¦æ ¼ç´ã™ã‚‹
 		_fieldObjectAddble.AddFieldPuyoObject(_puyos[index]);
 	}
 
 	/// <summary>
-	/// ‰ñ“]‚·‚é
+	/// å›è»¢ã™ã‚‹
 	/// </summary>
-	/// <param name="rotateDirection">‰ñ“]‚Ì•ûŒü</param>
+	/// <param name="rotateDirection">å›è»¢ã®æ–¹å‘</param>
 	public void RotationCompositePuyo(RotateDirection rotateDirection)
-	{
-		if (_myState == CompositePuyoState.CanMoving)
+	{	
+		switch (_myState)
 		{
-			if (CanNormalRotation(rotateDirection))
-			{
-				NormalRotation(rotateDirection);
-			}
-			else if (CanWallRotation(rotateDirection))
-			{
-				WallRotation(rotateDirection);
-			}
+			//å‹•ã‘ã‚‹å ´åˆã«å›è»¢ã§ããã†ãªã‚‰å›è»¢ã™ã‚‹
+			case CompositePuyoState.CanMoving:
+				{
+					if (CanNormalRotation(rotateDirection))
+					{
+						NormalRotation(rotateDirection);
+					}
+					else if (CanWallRotation(rotateDirection))
+					{
+						WallRotation(rotateDirection);
+					}
+					break;
+				}
 		}
 	}
 
 	/// <summary>
-	/// ’Êí‚Ì‰ñ“]‚Ì”»’è
+	/// é€šå¸¸ã®å›è»¢ã®åˆ¤å®š
 	/// </summary>
-	/// <param name="rotateDirection">‰ñ“]‚Ì•ûŒü</param>
-	/// <returns>’Êí‚Ì‰ñ“]‚ª‚Å‚«‚é‚©</returns>
+	/// <param name="rotateDirection">å›è»¢ã®æ–¹å‘</param>
+	/// <returns>é€šå¸¸ã®å›è»¢ãŒã§ãã‚‹ã‹</returns>
 	private bool CanNormalRotation(RotateDirection rotateDirection)
 	{
 		switch (_myRotationState)
 		{
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ªã‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸Šã«ã‚ã‚‹ã¨ã
 			case RotationState.Top:
 				{
-					//‰E‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å³å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìˆê‚Â‰E‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤å³ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row + 1, _puyos[0].Col) == FieldDataType.None;
 					}
-					//¶‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å·¦å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					else
 					{
-						//²‚Ìˆê‚Â¶‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤å·¦ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row - 1, _puyos[0].Col) == FieldDataType.None;
 					}
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰E‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå³ã«ã‚ã‚‹ã¨ã
 			case RotationState.Right:
 				{
-					//‰E‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å³å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìˆê‚Â‰º‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤ä¸‹ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row, _puyos[0].Col - 1) == FieldDataType.None;
 					}
-					//²‚Ìã‚É‚Í•K‚¸‰½‚à‚È‚¢‚Ì‚Åtrue‚ğ•Ô‚·
+					//è»¸ã®ä¸Šã«ã¯å¿…ãšä½•ã‚‚ãªã„ã®ã§trueã‚’è¿”ã™
 					return true;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰º‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸‹ã«ã‚ã‚‹ã¨ã
 			case RotationState.Bottom:
 				{
-					//‰E‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å³å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìˆê‚Â¶‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤å·¦ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row - 1, _puyos[0].Col) == FieldDataType.None;
 					}
-					//¶‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å·¦å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					else
 					{
-						//²‚Ìˆê‚Â‰E‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤å³ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row + 1, _puyos[0].Col) == FieldDataType.None;
 					}
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª¶‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå·¦ã«ã‚ã‚‹ã¨ã
 			case RotationState.Left:
 				{
-					//‰E‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å³å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìã‚É‚Í•K‚¸‰½‚à‚È‚¢‚Ì‚Åtrue‚ğ•Ô‚·
+						//è»¸ã®ä¸Šã«ã¯å¿…ãšä½•ã‚‚ãªã„ã®ã§trueã‚’è¿”ã™
 						return true;
 					}
-					//¶‰ñ“]‚ğ‚µ‚½‚¢ê‡
+					//å·¦å›è»¢ã‚’ã—ãŸã„å ´åˆ
 					else
 					{
-						//²‚Ìˆê‚Â‰º‚É‚È‚É‚à‚È‚¢‚©
+						//è»¸ã®ä¸€ã¤ä¸‹ã«ãªã«ã‚‚ãªã„ã‹
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row, _puyos[0].Col - 1) == FieldDataType.None;
 					}
 				}
 		}
-		//—áŠOˆ—
+		//ä¾‹å¤–å‡¦ç†
 		return false;
 	}
 
 	/// <summary>
-	/// ’Êí‚Ì‰ñ“]
+	/// é€šå¸¸ã®å›è»¢
 	/// </summary>
-	/// <param name="rotateDirection">‰ñ“]‚Ì•ûŒü</param>
+	/// <param name="rotateDirection">å›è»¢ã®æ–¹å‘</param>
 	private void NormalRotation(RotateDirection rotateDirection)
 	{
 		switch (_myRotationState)
 		{
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ªã‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸Šã«ã‚ã‚‹ã¨ã
 			case RotationState.Top:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ‰E‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å³ã«å¤‰æ›´
 						_myRotationState = RotationState.Right;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì‰E‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®å³ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down + Vector2.right);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ¶‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å·¦ã«å¤‰æ›´
 						_myRotationState = RotationState.Left;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì¶‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®å·¦ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down + Vector2.left);
 					}
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰E‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå³ã«ã‚ã‚‹ã¨ã
 			case RotationState.Right:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ‰º‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸‹ã«å¤‰æ›´
 						_myRotationState = RotationState.Bottom;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì‰º‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®ä¸‹ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down + Vector2.left);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğã‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šã«å¤‰æ›´
 						_myRotationState = RotationState.Top;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ìã‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®ä¸Šã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up + Vector2.left);
 					}
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰º‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸‹ã«ã‚ã‚‹ã¨ã
 			case RotationState.Bottom:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ¶‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å·¦ã«å¤‰æ›´
 						_myRotationState = RotationState.Left;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì¶‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®å·¦ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up + Vector2.left);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ‰E‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å³ã«å¤‰æ›´
 						_myRotationState = RotationState.Right;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì‰E‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®å³ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up + Vector2.right);
 					}
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª¶‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå·¦ã«ã‚ã‚‹ã¨ã
 			case RotationState.Left:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğã‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šã«å¤‰æ›´
 						_myRotationState = RotationState.Top;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ìã‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®ä¸Šã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up + Vector2.right);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]‚ÌƒXƒe[ƒg‚ğ‰º‚É•ÏX
+						//å›è»¢ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸‹ã«å¤‰æ›´
 						_myRotationState = RotationState.Bottom;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ²‚Ì‰º‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’è»¸ã®ä¸‹ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down + Vector2.right);
 					}
 					break;
@@ -333,139 +347,139 @@ public class CompositePuyoScript : ICompositePuyoOperatable, ICompositePuyoState
 	}
 
 	/// <summary>
-	/// •Ç‚É‚Ô‚Â‚©‚Á‚½Û‚Ì‰ñ“]‚Ì”»’è
+	/// å£ã«ã¶ã¤ã‹ã£ãŸéš›ã®å›è»¢ã®åˆ¤å®š
 	/// </summary>
-	/// <param name="rotateDirection">‰ñ“]‚Ì•ûŒü</param>
-	/// <returns>•Ç‚É‚Ô‚Â‚©‚Á‚½Û‚Ì‰ñ“]‚ª‚Å‚«‚é‚©</returns>
+	/// <param name="rotateDirection">å›è»¢ã®æ–¹å‘</param>
+	/// <returns>å£ã«ã¶ã¤ã‹ã£ãŸéš›ã®å›è»¢ãŒã§ãã‚‹ã‹</returns>
 	private bool CanWallRotation(RotateDirection rotateDirection)
 	{
 		switch (_myRotationState)
 		{
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ªã‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸Šã«ã‚ã‚‹ã¨ã
 			case RotationState.Top:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìˆê‚Â¶‚ª‚È‚É‚à‚È‚¢‚Æ‚«
+						//è»¸ã®ä¸€ã¤å·¦ãŒãªã«ã‚‚ãªã„ã¨ã
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row - 1, _puyos[0].Col) == FieldDataType.None;
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//²‚Ìˆê‚Â‰E‚ª‚È‚É‚à‚È‚¢‚Æ‚«
+						//è»¸ã®ä¸€ã¤å³ãŒãªã«ã‚‚ãªã„ã¨ã
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row + 1, _puyos[0].Col) == FieldDataType.None;
 					}
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰E‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå³ã«ã‚ã‚‹ã¨ã
 			case RotationState.Right:
 				{
 					return true;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰º‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸‹ã«ã‚ã‚‹ã¨ã
 			case RotationState.Bottom:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//²‚Ìˆê‚Â‰E‚ª‚È‚É‚à‚È‚¢‚Æ‚«
+						//è»¸ã®ä¸€ã¤å³ãŒãªã«ã‚‚ãªã„ã¨ã
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row + 1, _puyos[0].Col) == FieldDataType.None;
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//²‚Ìˆê‚Â¶‚ª‚È‚É‚à‚È‚¢‚Æ‚«
+						//è»¸ã®ä¸€ã¤å·¦ãŒãªã«ã‚‚ãªã„ã¨ã
 						return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row - 1, _puyos[0].Col) == FieldDataType.None;
 					}
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª¶‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå·¦ã«ã‚ã‚‹ã¨ã
 			case RotationState.Left:
 				{
-					//²‚Ìˆê‚Âã‚ª‚È‚É‚à‚È‚¢‚Æ‚«
+					//è»¸ã®ä¸€ã¤ä¸ŠãŒãªã«ã‚‚ãªã„ã¨ã
 					return _fieldArrayDataControllable.GetFieldData(_puyos[0].Row, _puyos[0].Col + 1) == FieldDataType.None;
 				}
 		}
-		//—áŠOˆ—
+		//ä¾‹å¤–å‡¦ç†
 		return false;
 	}
 
 	/// <summary>
-	/// •Ç‚É‚Ô‚Â‚©‚Á‚½Û‚Ì‰ñ“]
+	/// å£ã«ã¶ã¤ã‹ã£ãŸéš›ã®å›è»¢
 	/// </summary>
-	/// <param name="rotateDirection">‰ñ“]‚Ì•ûŒü</param>
+	/// <param name="rotateDirection">å›è»¢ã®æ–¹å‘</param>
 	private void WallRotation(RotateDirection rotateDirection)
 	{
 		switch (_myRotationState)
 		{
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ªã‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸Šã«ã‚ã‚‹ã¨ã
 			case RotationState.Top:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]ƒXƒe[ƒg‚ğ‰E‚Éİ’è
+						//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å³ã«è¨­å®š
 						_myRotationState = RotationState.Right;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ‰º‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’ä¸‹ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down);
-						//²‚Ì‚Õ‚æ‚ğ¶‚ÉˆÚ“®
+						//è»¸ã®ã·ã‚ˆã‚’å·¦ã«ç§»å‹•
 						_puyos[0].MovePuyo(Vector2.left);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]ƒXƒe[ƒg‚ğ¶‚Éİ’è
+						//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å·¦ã«è¨­å®š
 						_myRotationState = RotationState.Left;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ‰º‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’ä¸‹ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.down);
-						//²‚Ì‚Õ‚æ‚ğ‰E‚ÉˆÚ“®
+						//è»¸ã®ã·ã‚ˆã‚’å³ã«ç§»å‹•
 						_puyos[0].MovePuyo(Vector2.right);
 					}
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰E‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå³ã«ã‚ã‚‹ã¨ã
 			case RotationState.Right:
 				{
-					//‰ñ“]ƒXƒe[ƒg‚ğ‰º‚Éİ’è
+					//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸‹ã«è¨­å®š
 					_myRotationState = RotationState.Bottom;
-					//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ¶‚ÉˆÚ“®
+					//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’å·¦ã«ç§»å‹•
 					_puyos[1].MovePuyo(Vector2.left);
-					//²‚Ì‚Õ‚æ‚ğã‚ÉˆÚ“®
+					//è»¸ã®ã·ã‚ˆã‚’ä¸Šã«ç§»å‹•
 					_puyos[0].MovePuyo(Vector2.up);
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª‰º‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒä¸‹ã«ã‚ã‚‹ã¨ã
 			case RotationState.Bottom:
 				{
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª‰E‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå³ã®ã¨ã
 					if (rotateDirection == RotateDirection.Right)
 					{
-						//‰ñ“]ƒXƒe[ƒg‚ğ¶‚Éİ’è
+						//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å·¦ã«è¨­å®š
 						_myRotationState = RotationState.Left;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ‰º‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’ä¸‹ã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up);
-						//²‚Ì‚Õ‚æ‚ğ‰E‚ÉˆÚ“®
+						//è»¸ã®ã·ã‚ˆã‚’å³ã«ç§»å‹•
 						_puyos[0].MovePuyo(Vector2.right);
 					}
-					//‰ñ“]‚µ‚½‚¢•ûŒü‚ª¶‚Ì‚Æ‚«
+					//å›è»¢ã—ãŸã„æ–¹å‘ãŒå·¦ã®ã¨ã
 					else
 					{
-						//‰ñ“]ƒXƒe[ƒg‚ğ‰E‚Éİ’è
+						//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å³ã«è¨­å®š
 						_myRotationState = RotationState.Right;
-						//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğã‚ÉˆÚ“®
+						//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’ä¸Šã«ç§»å‹•
 						_puyos[1].MovePuyo(Vector2.up);
-						//²‚Ì‚Õ‚æ‚ğ¶‚ÉˆÚ“®
+						//è»¸ã®ã·ã‚ˆã‚’å·¦ã«ç§»å‹•
 						_puyos[0].MovePuyo(Vector2.left);
 					}
 					break;
 				}
-			//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ª¶‚É‚ ‚é‚Æ‚«
+			//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆãŒå·¦ã«ã‚ã‚‹ã¨ã
 			case RotationState.Left:
 				{
-					//‰ñ“]ƒXƒe[ƒg‚ğã‚Éİ’è
+					//å›è»¢ã‚¹ãƒ†ãƒ¼ãƒˆã‚’ä¸Šã«è¨­å®š
 					_myRotationState = RotationState.Top;
-					//²‚Ì‚Õ‚æ‚ğ¶‚ÉˆÚ“®
+					//è»¸ã®ã·ã‚ˆã‚’å·¦ã«ç§»å‹•
 					_puyos[0].MovePuyo(Vector2.up);
-					//²‚¶‚á‚È‚¢‚Ù‚¤‚Ì‚Õ‚æ‚ğ‰Eã‚ÉˆÚ“®
+					//è»¸ã˜ã‚ƒãªã„ã»ã†ã®ã·ã‚ˆã‚’å³ä¸Šã«ç§»å‹•
 					_puyos[1].MovePuyo(Vector2.right);
 					break;
 				}

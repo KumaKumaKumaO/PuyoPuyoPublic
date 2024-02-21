@@ -1,5 +1,5 @@
 /// <summary>
-/// �z��f�[�^�ɏ������ނƂ��̃^�C�v
+/// 配列データに書き込むときのタイプ
 /// </summary>
 public enum FieldDataType
 {

@@ -1,16 +1,16 @@
 // ---------------------------------------------------------
 // TitileManager.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹ƒ}ƒl[ƒWƒƒ[
+/// ã‚¿ã‚¤ãƒˆãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 /// </summary>
 public class TitileManager : MonoBehaviour
 {
@@ -18,10 +18,10 @@ public class TitileManager : MonoBehaviour
 
     private void Update()
     {
-        //Œˆ’è‚ª‰Ÿ‚³‚ê‚½‚ç
+        //æ±ºå®šãŒæŠ¼ã•ã‚ŒãŸã‚‰
         if (inputScript.IsSubmit())
         {
-            //ƒV[ƒ“‚ğ•Ï‚¦‚é
+            //ã‚·ãƒ¼ãƒ³ã‚’å¤‰ãˆã‚‹
             SceneManager.LoadScene("GameScene");
         }
     }

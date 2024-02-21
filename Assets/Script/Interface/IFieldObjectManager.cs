@@ -1,4 +1,4 @@
-﻿namespace Interface
+namespace Interface
 {
 	/// <summary>
 	/// フィールドに設置したぷよを追加できる

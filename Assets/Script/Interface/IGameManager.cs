@@ -1,4 +1,4 @@
-﻿namespace Interface
+namespace Interface
 {
     /// <summary>
     /// ゲームマネージャーの状態を変更できる

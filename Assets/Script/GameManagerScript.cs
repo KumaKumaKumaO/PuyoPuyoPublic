@@ -1,15 +1,15 @@
 // ---------------------------------------------------------
 // GameManagerScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 
 /// <summary>
-/// ƒQ[ƒ€ƒ}ƒl[ƒWƒƒ[
+/// ã‚²ãƒ¼ãƒ ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 /// </summary>
 public class GameManagerScript : MonoBehaviour
 {
@@ -18,9 +18,9 @@ public class GameManagerScript : MonoBehaviour
 	[SerializeField]
 	private GameObject _gameOverZonePrefab = default;
 
-	[SerializeField, Tooltip("¶‰E‚Ì•Ç")]
+	[SerializeField, Tooltip("å·¦å³ã®å£")]
 	private int _stageRowLength = 6;
-	[SerializeField, Tooltip("‚‚³")]
+	[SerializeField, Tooltip("é«˜ã•")]
 	private int _stageColLength = 12;
 	[SerializeField]
 	private int canDeletePuyoValue = 4;
@@ -28,8 +28,6 @@ public class GameManagerScript : MonoBehaviour
 	private int _fieldCount = 1;
 	[SerializeField]
 	private int[] _playerPlayFieldNumber = default;
-	[SerializeField]
-	private Vector2 _initPos = new Vector2(-2, -7);
 
 	private PlayFieldManagerScript[] _playFieldManagers = default;
 
@@ -42,61 +40,62 @@ public class GameManagerScript : MonoBehaviour
 
 	private void Start()
 	{
-		//Canvas‚ğ‚»‚ê‚¼‚êæ“¾‚·‚é
+		//Canvasã‚’ãã‚Œãã‚Œå–å¾—ã™ã‚‹
 		GameObject pauseCanvasObject = GameObject.FindWithTag("PauseCanvas");
 		if (pauseCanvasObject == null)
 		{
-			Debug.LogError("ƒGƒ‰[FCanvasƒIƒuƒWƒFƒNƒg‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B");
+			Debug.LogError("ã‚¨ãƒ©ãƒ¼ï¼šCanvasã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
 		}
 		GameObject gameOverCanvasObject = GameObject.FindWithTag("GameOverCanvas");
 		if (gameOverCanvasObject == null)
 		{
-			Debug.LogError("ƒGƒ‰[FCanvasƒIƒuƒWƒFƒNƒg‚ªæ“¾‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B");
+			Debug.LogError("ã‚¨ãƒ©ãƒ¼ï¼šCanvasã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå–å¾—ã§ãã¾ã›ã‚“ã§ã—ãŸã€‚");
 		}
-		//ObjectPool—p‚ÌƒNƒ‰ƒX‚ğæ“¾‚·‚é
+		//ObjectPoolç”¨ã®ã‚¯ãƒ©ã‚¹ã‚’å–å¾—ã™ã‚‹
 		ObjectPoolScript objectPoolScript = GetComponent<ObjectPoolScript>();
-		//ObjectPool‚ğ‰Šú‰»‚·‚é
+		//ObjectPoolã‚’åˆæœŸåŒ–ã™ã‚‹
 		objectPoolScript.Initialization(_fieldCount, _stageColLength * _stageRowLength);
 
 		GameData gameData = default;
-		//ƒtƒB[ƒ‹ƒh‚ÌŒÂ”•ª‚¾‚¯”z—ñ‚ğì¬‚·‚é
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å€‹æ•°åˆ†ã ã‘é…åˆ—ã‚’ä½œæˆã™ã‚‹
 		_playFieldManagers = new PlayFieldManagerScript[_fieldCount];
 		Vector2 nextPos = default;
 		Vector2 popPos = default;
+		Vector2 initPos = new Vector2(-2, -7);
 		FieldDataScript fieldDataScript = default;
-		//ƒtƒB[ƒ‹ƒh‚ÌŒÂ”•ª‚ÌƒtƒB[ƒ‹ƒh‚ğ¶¬‚·‚é
+		//ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®å€‹æ•°åˆ†ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆã™ã‚‹
 		for (int i = 0; i < _fieldCount; i++)
 		{
-			//‘€ìŠJnƒ|ƒWƒVƒ‡ƒ“‚ğì¬
-			popPos = _initPos + Vector2.up * (_stageColLength) + Vector2.right * (_stageRowLength / 2 + _stageColLength % 2);
-			//€”õƒ|ƒWƒVƒ‡ƒ“‚ğì¬
-			nextPos = _initPos + Vector2.up * _stageColLength
+			//æ“ä½œé–‹å§‹ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ä½œæˆ
+			popPos = initPos + Vector2.up * (_stageColLength) + Vector2.right * (_stageRowLength / 2 + _stageColLength % 2);
+			//æº–å‚™ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ä½œæˆ
+			nextPos = initPos + Vector2.up * _stageColLength
 				+ Vector2.right * (_stageRowLength + STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE);
-			//”z—ñƒf[ƒ^‚ğì¬
+			//é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆ
 			fieldDataScript = new FieldDataScript(_stageRowLength + STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE
 				, _stageColLength + STAGE_WALL_BOTTOMSIDE_SIZE + 2, STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE, STAGE_WALL_BOTTOMSIDE_SIZE);
-			//ƒXƒe[ƒW‚ğ¶¬
-			InstanceStage(_initPos, fieldDataScript, popPos);
-			//‰Šú‰»—p‚Ìƒf[ƒ^‚ğì¬
+			//ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ç”Ÿæˆ
+			InstanceStage(initPos, fieldDataScript, popPos);
+			//åˆæœŸåŒ–ç”¨ã®ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆ
 			gameData = new GameData(canDeletePuyoValue, nextPos, popPos, fieldDataScript);
-			//ƒvƒŒƒCƒ„[‚Ì”Ô†‚Æ“ü—Í‚ğŒ‹‚Ñ•t‚¯‚é
+			//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç•ªå·ã¨å…¥åŠ›ã‚’çµã³ä»˜ã‘ã‚‹
 			foreach (int item in _playerPlayFieldNumber)
 			{
 				if (item == i)
 				{
-					//ƒvƒŒƒCƒ„[—p‚ÌƒtƒB[ƒ‹ƒh‚ğ¶¬
+					//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”¨ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ç”Ÿæˆ
 					_playFieldManagers[i] = new PlayFieldManagerScript(new PlayerInputScript(), gameData, objectPoolScript
 						, pauseCanvasObject, gameOverCanvasObject);
 					continue;
 				}
-				//AI‚â•¡”lƒvƒŒƒC‚É‚Í‘Î‰‚µ‚Ä‚¢‚È‚¢‚½‚ß•¡”ƒtƒB[ƒ‹ƒh‚ğì‚Á‚Ä‚à‘€ì‚ª“¯‚¶‚É‚È‚é
+				//AIã‚„è¤‡æ•°äººãƒ—ãƒ¬ã‚¤ã«ã¯å¯¾å¿œã—ã¦ã„ãªã„ãŸã‚è¤‡æ•°ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’ä½œã£ã¦ã‚‚æ“ä½œãŒåŒã˜ã«ãªã‚‹
 				_playFieldManagers[i] = new PlayFieldManagerScript(new PlayerInputScript(), gameData, objectPoolScript
 					, pauseCanvasObject, gameOverCanvasObject);
 			}
-			//‰Šú‰»—pƒ|ƒWƒVƒ‡ƒ“‚ğ‚¸‚ç‚·
-			_initPos += Vector2.right * (STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE + _stageRowLength + STAGE_NEXT_ROW_SIZE);
+			//åˆæœŸåŒ–ç”¨ãƒã‚¸ã‚·ãƒ§ãƒ³ã‚’ãšã‚‰ã™
+			initPos += Vector2.right * (STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE + _stageRowLength + STAGE_NEXT_ROW_SIZE);
 		}
-		//g‚í‚È‚¢QÆ‚ğØ‚é
+		//ä½¿ã‚ãªã„å‚ç…§ã‚’åˆ‡ã‚‹
 		objectPoolScript = null;
 		pauseCanvasObject = null;
 		gameOverCanvasObject = null;
@@ -105,7 +104,7 @@ public class GameManagerScript : MonoBehaviour
 
 	private void Update()
 	{
-		//‘S‚Ä‚ÌƒtƒB[ƒ‹ƒh‚ğ“®‚©‚·
+		//å…¨ã¦ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’å‹•ã‹ã™
 		foreach (PlayFieldManagerScript item in _playFieldManagers)
 		{
 			item.PlayUpdate();
@@ -113,15 +112,15 @@ public class GameManagerScript : MonoBehaviour
 	}
 
 	/// <summary>
-	/// ƒXƒe[ƒW‚Ì¶¬
+	/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ç”Ÿæˆ
 	/// </summary>
-	/// <param name="fieldBottomLeftCorner">ƒXƒe[ƒW‚ğ¶¬‚·‚é‚Æ‚«‚ÌŠî€</param>
-	/// <param name="fieldDataScript">”z—ñƒf[ƒ^</param>
-	/// <param name="popPos">ƒ|ƒbƒv‚·‚éêŠ</param>
+	/// <param name="fieldBottomLeftCorner">ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ç”Ÿæˆã™ã‚‹ã¨ãã®åŸºæº–</param>
+	/// <param name="fieldDataScript">é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
+	/// <param name="popPos">ãƒãƒƒãƒ—ã™ã‚‹å ´æ‰€</param>
 	private void InstanceStage(Vector2 fieldBottomLeftCorner, FieldDataScript fieldDataScript, Vector2 popPos)
 	{
 		int rowLength = STAGE_WALL_LEFTSIDE_SIZE + STAGE_WALL_RIGHTSIDE_SIZE + _stageRowLength;
-		//ˆê”Ô‰º‚Ì’i‚Ì¶¬
+		//ä¸€ç•ªä¸‹ã®æ®µã®ç”Ÿæˆ
 		for (int i = 0; i < STAGE_WALL_BOTTOMSIDE_SIZE; i++)
 		{
 			for (int k = 0; k < rowLength; k++)
@@ -130,7 +129,7 @@ public class GameManagerScript : MonoBehaviour
 				fieldDataScript.SetFieldArrayData(k, i, FieldDataType.Wall);
 			}
 		}
-		//¶‘¤‚Ì•Ç‚Ì¶¬
+		//å·¦å´ã®å£ã®ç”Ÿæˆ
 		for (int i = 0; i < STAGE_WALL_LEFTSIDE_SIZE; i++)
 		{
 			for (int k = 1; k <= _stageColLength; k++)
@@ -139,7 +138,7 @@ public class GameManagerScript : MonoBehaviour
 				fieldDataScript.SetFieldArrayData(i, k, FieldDataType.Wall);
 			}
 		}
-		//‰E‘¤‚Ì•Ç‚Ì¶¬
+		//å³å´ã®å£ã®ç”Ÿæˆ
 		for (int i = 1; i <= STAGE_WALL_RIGHTSIDE_SIZE; i++)
 		{
 			for (int k = 1; k <= _stageColLength; k++)

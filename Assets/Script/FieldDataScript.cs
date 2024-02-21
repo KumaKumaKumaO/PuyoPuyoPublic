@@ -1,15 +1,15 @@
 // ---------------------------------------------------------
 // FieldDataScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
 
 /// <summary>
-/// ƒtƒB[ƒ‹ƒh‚Ì”z—ñƒf[ƒ^‚ğ‘€ìAQÆ
+/// ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã®é…åˆ—ãƒ‡ãƒ¼ã‚¿ã‚’æ“ä½œã€å‚ç…§
 /// </summary>
 public class FieldDataScript : IFieldArrayDataGetable, IFieldArrayDataSetable, IFieldArrayDataControllable
 {
@@ -18,32 +18,32 @@ public class FieldDataScript : IFieldArrayDataGetable, IFieldArrayDataSetable, I
 	private int _wallCol = default;
 
 	/// <summary>
-	/// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚½—ñ‚Ì’·‚³
+	/// å£ã®åšã•ã‚’å«ã‚ãŸåˆ—ã®é•·ã•
 	/// </summary>
 	public int FieldDataArrayColLength { get { return _fieldDataArray.GetLength(1); } }
 
 	/// <summary>
-	/// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚½s‚Ì’·‚³
+	/// å£ã®åšã•ã‚’å«ã‚ãŸè¡Œã®é•·ã•
 	/// </summary>
 	public int FieldDataArrayRowLength { get { return _fieldDataArray.GetLength(0); } }
 
 	/// <summary>
-	/// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚È‚¢s‚Ì’·‚³
+	/// å£ã®åšã•ã‚’å«ã‚ãªã„è¡Œã®é•·ã•
 	/// </summary>
 	public int FieldDataArrayRowLengthNoneWall { get { return _fieldDataArray.GetLength(0) - _wallRow; } }
 
 	/// <summary>
-	/// •Ç‚ÌŒú‚³‚ğŠÜ‚ß‚È‚¢—ñ‚Ì’·‚³
+	/// å£ã®åšã•ã‚’å«ã‚ãªã„åˆ—ã®é•·ã•
 	/// </summary>
 	public int FieldDataArrayColLengthNoneWall { get { return _fieldDataArray.GetLength(1) - _wallCol; } }
 
 	/// <summary>
 	/// 
 	/// </summary>
-	/// <param name="stageRow">•Ç‚ğŠÜ‚ß‚½s</param>
-	/// <param name="stageCol">•Ç‚ğŠÜ‚ß‚½—ñ</param>
-	/// <param name="wallRow">s‚Ì•Ç‚ÌŒú‚³</param>
-	/// <param name="wallCol">—ñ‚Ì•Ç‚ÌŒú‚³</param>
+	/// <param name="stageRow">å£ã‚’å«ã‚ãŸè¡Œ</param>
+	/// <param name="stageCol">å£ã‚’å«ã‚ãŸåˆ—</param>
+	/// <param name="wallRow">è¡Œã®å£ã®åšã•</param>
+	/// <param name="wallCol">åˆ—ã®å£ã®åšã•</param>
 	public FieldDataScript(int stageRow, int stageCol, int wallRow, int wallCol)
 	{
 		_fieldDataArray = new FieldDataType[stageRow, stageCol];
@@ -52,11 +52,11 @@ public class FieldDataScript : IFieldArrayDataGetable, IFieldArrayDataSetable, I
 	}
 
 	/// <summary>
-	/// ”z—ñƒf[ƒ^‚ÌQÆ
+	/// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã®å‚ç…§
 	/// </summary>
-	/// <param name="row">—ñ</param>
-	/// <param name="col">s</param>
-	/// <returns>QÆæ‚Ìƒf[ƒ^</returns>
+	/// <param name="row">åˆ—</param>
+	/// <param name="col">è¡Œ</param>
+	/// <returns>å‚ç…§å…ˆã®ãƒ‡ãƒ¼ã‚¿</returns>
 	public FieldDataType GetFieldData(int row, int col)
 	{
 		if (row >= _fieldDataArray.GetLength(0) || col >= _fieldDataArray.GetLength(1) || row < 0 || col < 0)
@@ -67,11 +67,11 @@ public class FieldDataScript : IFieldArrayDataGetable, IFieldArrayDataSetable, I
 	}
 
 	/// <summary>
-	/// ”z—ñƒf[ƒ^‚Ì‘€ì
+	/// é…åˆ—ãƒ‡ãƒ¼ã‚¿ã®æ“ä½œ
 	/// </summary>
-	/// <param name="row">—ñ</param>
-	/// <param name="col">s</param>
-	/// <param name="data">•ÏXŒã‚Ìƒf[ƒ^</param>
+	/// <param name="row">åˆ—</param>
+	/// <param name="col">è¡Œ</param>
+	/// <param name="data">å¤‰æ›´å¾Œã®ãƒ‡ãƒ¼ã‚¿</param>
 	public void SetFieldArrayData(int row, int col, FieldDataType data)
 	{
 		_fieldDataArray[row, col] = data;

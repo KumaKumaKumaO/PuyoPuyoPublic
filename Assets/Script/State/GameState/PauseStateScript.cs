@@ -1,16 +1,16 @@
 // ---------------------------------------------------------
 // PauseStateScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using Interface;
 using UnityEngine;
 
 /// <summary>
-/// ƒ|[ƒYƒXƒe[ƒg
+/// ãƒãƒ¼ã‚ºã‚¹ãƒ†ãƒ¼ãƒˆ
 /// </summary>
 public class PauseStateScript : BaseGameStateScript
 {
@@ -25,16 +25,16 @@ public class PauseStateScript : BaseGameStateScript
 
 	public override void Enter()
 	{
-		//ƒ|[ƒYƒLƒƒƒ“ƒoƒX‚ğ•\¦‚·‚é
+		//ãƒãƒ¼ã‚ºã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’è¡¨ç¤ºã™ã‚‹
 		_pauseCanvas.SetActive(true);
 	}
 
 	public override void Execute()
 	{
-		//ƒ|[ƒYƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½ê‡
+		//ãƒãƒ¼ã‚ºãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸå ´åˆ
 		if (_input.IsPause())
 		{
-			//‘O‚ÌƒXƒe[ƒg‚É–ß‚·
+			//å‰ã®ã‚¹ãƒ†ãƒ¼ãƒˆã«æˆ»ã™
 			_gameManagerStateChangable.ChangeToBeforeState();
 		}
 
@@ -42,9 +42,9 @@ public class PauseStateScript : BaseGameStateScript
 
 	public override void Exit()
 	{
-		//ƒ|[ƒYƒLƒƒƒ“ƒoƒX‚ğÁ‚·
+		//ãƒãƒ¼ã‚ºã‚­ãƒ£ãƒ³ãƒã‚¹ã‚’æ¶ˆã™
 		_pauseCanvas.SetActive(false);
-		//ƒ|[ƒYƒLƒƒƒ“ƒoƒX‚ÌQÆ‚ğØ‚é
+		//ãƒãƒ¼ã‚ºã‚­ãƒ£ãƒ³ãƒã‚¹ã®å‚ç…§ã‚’åˆ‡ã‚‹
 		_pauseCanvas = null;
 	}
 }

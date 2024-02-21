@@ -1,15 +1,15 @@
 // ---------------------------------------------------------
 // OperationTimerScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 
 /// <summary>
-/// ƒ^ƒCƒ}[‚ğŠÇ—‚·‚éƒXƒNƒŠƒvƒg
+/// ã‚¿ã‚¤ãƒãƒ¼ã‚’ç®¡ç†ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class OperationTimerScript
 {
@@ -18,28 +18,28 @@ public class OperationTimerScript
 	private TimerState _myState = default;
 
 	/// <summary>
-	/// ƒ^ƒCƒ}[‚Ìó‘Ô‚ğ§Œä‚·‚é
+	/// ã‚¿ã‚¤ãƒãƒ¼ã®çŠ¶æ…‹ã‚’åˆ¶å¾¡ã™ã‚‹
 	/// </summary>
-	/// <returns>Œ»İ‚Ìó‘Ô</returns>
+	/// <returns>ç¾åœ¨ã®çŠ¶æ…‹</returns>
 	public TimerState TimerStateUpdate()
 	{
 		switch (_myState)
 		{
-			//“®ì’†‚¾‚Á‚½‚ç
+			//å‹•ä½œä¸­ã ã£ãŸã‚‰
 			case TimerState.Processing:
 				{
-					//“Á’è‚ÌŠÔ‚ğ‚·‚¬‚½‚©
+					//ç‰¹å®šã®æ™‚é–“ã‚’ã™ããŸã‹
 					if (Time.time >= _startTime + _fallTime)
 					{
-						//ƒ^ƒCƒ}[‚ğI—¹‚É•ÏX‚·‚é
+						//ã‚¿ã‚¤ãƒãƒ¼ã‚’çµ‚äº†ã«å¤‰æ›´ã™ã‚‹
 						_myState = TimerState.Termination;
 					}
 					break;
 				}
-			//I—¹‚µ‚½‚ç
+			//çµ‚äº†ã—ãŸã‚‰
 			case TimerState.Termination:
 				{
-					//ƒ^ƒCƒ}[‚ğ‰Šú‰»‚·‚é
+					//ã‚¿ã‚¤ãƒãƒ¼ã‚’åˆæœŸåŒ–ã™ã‚‹
 					TimerInitialization();
 					break;
 				}
@@ -48,13 +48,13 @@ public class OperationTimerScript
 	}
 
 	/// <summary>
-	/// ƒ^ƒCƒ}[‚Ì‰Šú‰»
+	/// ã‚¿ã‚¤ãƒãƒ¼ã®åˆæœŸåŒ–
 	/// </summary>
 	public void TimerInitialization()
 	{
-		//Œ»İ‚ÌŠÔ‚ğ•Û‘¶
+		//ç¾åœ¨ã®æ™‚é–“ã‚’ä¿å­˜
 		_startTime = Time.time;
-		//ƒ^ƒCƒ}[‚ÌƒXƒe[ƒg‚ğ“®ì’†‚É•ÏX
+		//ã‚¿ã‚¤ãƒãƒ¼ã®ã‚¹ãƒ†ãƒ¼ãƒˆã‚’å‹•ä½œä¸­ã«å¤‰æ›´
 		_myState = TimerState.Processing;
 	}
 }

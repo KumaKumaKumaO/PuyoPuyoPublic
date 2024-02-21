@@ -1,24 +1,24 @@
 // ---------------------------------------------------------
 // BasePuyoScript.cs
 //
-// ì¬“ú:10/19
-// XV“ú:12/15
-// ì¬Ò:ŒF’Jq
+// ä½œæˆæ—¥:10/19
+// æ›´æ–°æ—¥:12/15
+// ä½œæˆè€…:ç†Šè°·èˆª
 // --------------------------------------------------------- 
 
 using UnityEngine;
 using Interface;
 
 /// <summary>
-/// ‚Õ‚æ‚Ìƒx[ƒX
+/// ã·ã‚ˆã®ãƒ™ãƒ¼ã‚¹
 /// </summary>
 public abstract class BasePuyoScript : MonoBehaviour, IPuyoDataGetable, IPuyoOperatable
 {
-	[SerializeField,Header("”z—ñ“à‚É‚¨‚¯‚é—ñ")]
+	[SerializeField,Header("é…åˆ—å†…ã«ãŠã‘ã‚‹åˆ—")]
 	private int _fieldDataCol = default;
-	[SerializeField,Header("”z—ñ“à‚É‚¨‚¯‚és")]
+	[SerializeField,Header("é…åˆ—å†…ã«ãŠã‘ã‚‹è¡Œ")]
 	private int _fieldDataRow = default;
-	[SerializeField,Header("”z—ñ“à‚É‚¨‚¯‚éƒf[ƒ^")]
+	[SerializeField,Header("é…åˆ—å†…ã«ãŠã‘ã‚‹ãƒ‡ãƒ¼ã‚¿")]
 	private FieldDataType _myFieldDataType = default;
 
 	private SpriteRenderer _mySpriteRenderer = default;
@@ -55,11 +55,11 @@ public abstract class BasePuyoScript : MonoBehaviour, IPuyoDataGetable, IPuyoOpe
 	}
 
 	/// <summary>
-	/// ‰Šú‰»
+	/// åˆæœŸåŒ–
 	/// </summary>
-	/// <param name="fieldDataCol">”z—ñ“à‚Ì©•ª‚Ì—ñ</param>
-	/// <param name="fieldDataRow">”z—ñ“à‚Ì©•ª‚Ìs</param>
-	/// <param name="myFieldDataType">”z—ñ“à‚Ì©•ª‚Ìƒf[ƒ^</param>
+	/// <param name="fieldDataCol">é…åˆ—å†…ã®è‡ªåˆ†ã®åˆ—</param>
+	/// <param name="fieldDataRow">é…åˆ—å†…ã®è‡ªåˆ†ã®è¡Œ</param>
+	/// <param name="myFieldDataType">é…åˆ—å†…ã®è‡ªåˆ†ã®ãƒ‡ãƒ¼ã‚¿</param>
 	public virtual void Initialization(int fieldDataCol, int fieldDataRow, FieldDataType myFieldDataType)
 	{
 		this._fieldDataCol = fieldDataCol;
@@ -68,25 +68,25 @@ public abstract class BasePuyoScript : MonoBehaviour, IPuyoDataGetable, IPuyoOpe
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ğ—‚¿‚ê‚é‚Æ‚±‚Ü‚Å—‚Æ‚·
+	/// ã·ã‚ˆã‚’è½ã¡ã‚Œã‚‹ã¨ã“ã¾ã§è½ã¨ã™
 	/// </summary>
-	/// <param name="fieldDataGetable">”z—ñƒf[ƒ^</param>
+	/// <param name="fieldDataGetable">é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
 	public virtual void FallPuyo(IFieldArrayDataGetable fieldDataGetable)
 	{
-		//‰º‚É—‚¿‚ê‚é‚©
+		//ä¸‹ã«è½ã¡ã‚Œã‚‹ã‹
 		for (; CanMovePuyo(Vector2.down, fieldDataGetable);)
 		{
-			//‰º‚ÉˆÚ“®‚·‚é
+			//ä¸‹ã«ç§»å‹•ã™ã‚‹
 			MovePuyo(Vector2.down);
 		}
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ª“®‚¯‚é‚©
+	/// ã·ã‚ˆãŒå‹•ã‘ã‚‹ã‹
 	/// </summary>
-	/// <param name="vector">Šm”F‚µ‚½‚¢ƒxƒNƒgƒ‹</param>
-	/// <param name="fieldDataGetable">”z—ñƒf[ƒ^</param>
-	/// <returns>‚»‚Ì•ûŒü‚É“®‚©‚¹‚é‚©</returns>
+	/// <param name="vector">ç¢ºèªã—ãŸã„ãƒ™ã‚¯ãƒˆãƒ«</param>
+	/// <param name="fieldDataGetable">é…åˆ—ãƒ‡ãƒ¼ã‚¿</param>
+	/// <returns>ãã®æ–¹å‘ã«å‹•ã‹ã›ã‚‹ã‹</returns>
 	public virtual bool CanMovePuyo(Vector2 vector, IFieldArrayDataGetable fieldDataGetable)
 	{
 		return fieldDataGetable.GetFieldData((int)(_fieldDataRow + vector.x), (int)(_fieldDataCol + vector.y))
@@ -94,24 +94,24 @@ public abstract class BasePuyoScript : MonoBehaviour, IPuyoDataGetable, IPuyoOpe
 	}
 
 	/// <summary>
-	/// ‚Õ‚æ‚ğ“®‚©‚·
+	/// ã·ã‚ˆã‚’å‹•ã‹ã™
 	/// </summary>
-	/// <param name="vector">“®‚­ƒxƒNƒgƒ‹</param>
+	/// <param name="vector">å‹•ããƒ™ã‚¯ãƒˆãƒ«</param>
 	public void MovePuyo(Vector2 vector)
 	{
-		//“®‚«‚½‚¢ƒxƒNƒgƒ‹‚É“®‚­
+		//å‹•ããŸã„ãƒ™ã‚¯ãƒˆãƒ«ã«å‹•ã
 		_myTransform.position += (Vector3)vector;
-		//©g‚Ì”z—ñ“àÀ•W‚ğXV‚·‚é
+		//è‡ªèº«ã®é…åˆ—å†…åº§æ¨™ã‚’æ›´æ–°ã™ã‚‹
 		UpdateMyData(vector);
 	}
 
 	/// <summary>
-	/// ©•ª‚ÌˆÊ’uî•ñ‚ÌXV
+	/// è‡ªåˆ†ã®ä½ç½®æƒ…å ±ã®æ›´æ–°
 	/// </summary>
-	/// <param name="vector">XV‚µ‚½‚¢ƒxƒNƒgƒ‹</param>
+	/// <param name="vector">æ›´æ–°ã—ãŸã„ãƒ™ã‚¯ãƒˆãƒ«</param>
 	private void UpdateMyData(Vector2 vector)
 	{
-		//©g‚Ì”z—ñ“àÀ•W‚ğˆÚ“®‚·‚é
+		//è‡ªèº«ã®é…åˆ—å†…åº§æ¨™ã‚’ç§»å‹•ã™ã‚‹
 		_fieldDataCol += (int)vector.y;
 		_fieldDataRow += (int)vector.x;
 	}

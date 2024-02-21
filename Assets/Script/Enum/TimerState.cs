@@ -1,5 +1,5 @@
 /// <summary>
-/// ƒ^ƒCƒ}[‚Ìó‘Ô
+/// ã‚¿ã‚¤ãƒãƒ¼ã®çŠ¶æ…‹
 /// </summary>
 public enum TimerState
 {
